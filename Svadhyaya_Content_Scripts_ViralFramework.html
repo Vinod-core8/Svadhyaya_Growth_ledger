@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Svadhyaya — Content Scripts (Viral Framework)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E1F3B; --navy-2:#152A4D;
+    --paper:#F7F4EC; --paper-2:#EFE9D8;
+    --line: rgba(14,31,59,0.14); --line-dark: rgba(247,244,236,0.14);
+    --gold:#C79A2E; --gold-light:#E7C766;
+    --ink:#1C2430; --ink-soft:#33404F; --muted:#6E7280;
+    --concept:#2A5FA8; --concept-bg:#E9F0FA;
+    --hook:#A8412F; --hook-bg:#F5E5E0;
+    --founder:#7A4B8C; --founder-bg:#F1E7F5;
+    --promo:#96660E; --promo-bg:#FBF0DC;
+    --doubt:#1E5E5E; --doubt-bg:#E4F1F1;
+    --solve:#2F6B4F; --solve-bg:#E7F2EB;
+    --card:#FFFFFF; --r:10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--navy); color:var(--ink-soft); font-family:'IBM Plex Sans',sans-serif; -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--gold); color:var(--navy);}
+
+  .navbar{position:sticky; top:0; z-index:50; background:var(--navy); border-bottom:1px solid var(--line-dark); padding:14px 6vw; display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;}
+  .navbar .brandmark{display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; color:var(--paper); font-size:12px; letter-spacing:.14em; text-transform:uppercase;}
+  .navbar .brandmark .dot{width:8px; height:8px; border-radius:50%; background:var(--gold);}
+  .navlinks{display:flex; gap:14px; flex-wrap:wrap;}
+  .navlinks a{color:rgba(247,244,236,0.7); text-decoration:none; font-family:'IBM Plex Mono',monospace; font-size:10.8px; letter-spacing:.05em; text-transform:uppercase; padding-bottom:3px; border-bottom:1px solid transparent; transition:.2s;}
+  .navlinks a:hover{color:var(--gold-light); border-color:var(--gold-light);}
+
+  .hero{background: radial-gradient(1100px 480px at 12% -10%, rgba(199,154,46,0.16), transparent 60%), radial-gradient(900px 460px at 92% 0%, rgba(42,95,168,0.16), transparent 55%), var(--navy); color:var(--paper); padding:64px 6vw 44px;}
+  .hero .kicker{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-light); display:flex; align-items:center; gap:12px; margin-bottom:18px;}
+  .hero .kicker::before{content:""; width:32px; height:1px; background:var(--gold-light); display:inline-block;}
+  .hero h1{font-family:'Fraunces',serif; font-weight:600; font-size:clamp(32px,5vw,52px); line-height:1.06; margin:0 0 14px; max-width:24ch;}
+  .hero h1 em{font-style:italic; font-weight:400; color:var(--gold-light);}
+  .hero p.lede{max-width:66ch; font-size:15.5px; line-height:1.65; color:rgba(247,244,236,0.78); margin:0 0 22px;}
+  .reel-count{display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold-light); background:rgba(247,244,236,0.08); border:1px solid var(--line-dark); padding:8px 14px; border-radius:20px;}
+
+  .page{background:var(--paper); background-image:linear-gradient(var(--line) 1px, transparent 1px); background-size:100% 40px;}
+  .block{max-width:1020px; margin:0 auto; padding:56px 6vw 8px;}
+  .week-title{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px;}
+  .tag{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--gold-light); background:var(--navy); padding:3px 10px; border-radius:4px; letter-spacing:.06em;}
+  h2{font-family:'Fraunces',serif; font-weight:600; font-size:clamp(22px,2.8vw,29px); margin:0; color:var(--navy);}
+  .week-sub{color:var(--muted); font-size:14px; max-width:700px; margin:8px 0 28px; line-height:1.6;}
+
+  /* ---- framework section ---- */
+  .fw-strip{display:flex; gap:2px; margin:22px 0 8px; border-radius:8px; overflow:hidden; flex-wrap:wrap;}
+  .fw-strip div{flex:1; min-width:110px; padding:14px 16px; color:#fff;}
+  .fw-strip .fwn{font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.06em; opacity:.8; margin-bottom:4px;}
+  .fw-strip .fwt{font-family:'Fraunces',serif; font-size:15px; font-weight:600;}
+  .fw1{background:#A8412F;} .fw2{background:#96660E;} .fw3{background:#2A5FA8;} .fw4{background:#0E1F3B;} .fw5{background:#7A4B8C;}
+
+  .visual-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:24px;}
+  @media(max-width:980px){.visual-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.visual-grid{grid-template-columns:1fr;}}
+  .vcard{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:16px; border-top:3px solid var(--gold);}
+  .vcard .vn{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gold); margin-bottom:8px;}
+  .vcard h4{font-family:'Fraunces',serif; font-weight:600; font-size:15.5px; color:var(--navy); margin:0 0 8px; line-height:1.25;}
+  .vcard p{font-size:12.3px; color:var(--muted); line-height:1.5; margin:0 0 10px;}
+  .vcard .ex{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink); background:var(--paper-2); border-radius:6px; padding:8px 10px; line-height:1.5;}
+
+  .hookmap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r); background:var(--card); margin-top:22px;}
+  table{width:100%; border-collapse:collapse; min-width:640px;}
+  table th{text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); padding:11px 16px; border-bottom:1px solid var(--line); background:#FCFBF6; white-space:nowrap;}
+  table td{padding:10px 16px; font-size:12.8px; border-bottom:1px solid var(--line); vertical-align:top;}
+  table tr:last-child td{border-bottom:none;}
+  td.mono{font-family:'IBM Plex Mono',monospace; white-space:nowrap; color:var(--ink-soft);}
+
+  /* ---- piece card ---- */
+  .piece{background:var(--card); border:1px solid var(--line); border-radius:var(--r); margin-bottom:20px; overflow:hidden;}
+  .piece-head{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:14px 22px; background:#FCFBF6; border-bottom:1px solid var(--line);}
+  .piece-date{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--navy); font-weight:600;}
+  .piece-tags{display:flex; gap:6px; flex-wrap:wrap;}
+  .pill{font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.05em; padding:3px 9px; border-radius:20px; white-space:nowrap;}
+  .pill.concept{background:var(--concept-bg); color:var(--concept);}
+  .pill.hook{background:var(--hook-bg); color:var(--hook);}
+  .pill.founder{background:var(--founder-bg); color:var(--founder);}
+  .pill.promo{background:var(--promo-bg); color:var(--promo);}
+  .pill.doubt{background:var(--doubt-bg); color:var(--doubt);}
+  .pill.solve{background:var(--solve-bg); color:var(--solve);}
+  .pill.fmt{background:var(--paper-2); color:var(--ink-soft);}
+  .pill.hooktype{background:var(--navy); color:var(--gold-light); font-style:italic;}
+
+  .piece-title{font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:var(--navy); padding:16px 22px 4px;}
+  .piece-body{padding:4px 22px 20px;}
+
+  .fw-row{display:flex; gap:10px; margin-top:14px; align-items:flex-start;}
+  .fw-badge{flex-shrink:0; width:78px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; text-transform:uppercase; letter-spacing:.06em; color:#fff; padding:4px 8px; border-radius:5px; text-align:center; margin-top:1px;}
+  .fw-badge.b-hook{background:#A8412F;}
+  .fw-badge.b-build{background:#96660E;}
+  .fw-badge.b-value{background:#2A5FA8;}
+  .fw-badge.b-payoff{background:#0E1F3B;}
+  .fw-badge.b-cta{background:#7A4B8C;}
+  .fw-text{font-size:14px; color:var(--ink); line-height:1.6;}
+  .fw-text.onscreen-line{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--navy); background:var(--paper-2); padding:3px 8px; border-radius:5px; display:inline-block;}
+
+  .pause-box{border:1.5px dashed var(--solve); background:var(--solve-bg); border-radius:8px; padding:9px 14px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--solve); margin:10px 0 0 88px;}
+  .note{background:var(--promo-bg); color:#7A5808; border-radius:8px; padding:10px 14px; font-size:12.5px; line-height:1.5; margin-top:12px;}
+  .msg-bubble{background:#E7F0E9; border-radius:14px 14px 14px 4px; padding:14px 18px; font-size:14px; color:var(--ink); line-height:1.65; max-width:560px;}
+
+  .launch-banner{background:linear-gradient(90deg,var(--navy),var(--navy-2)); color:var(--paper); border-radius:var(--r); padding:20px 24px; margin:8px 0 40px; border:1px solid var(--gold);}
+  .launch-banner .lt{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold-light); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;}
+
+  footer{background:var(--navy); color:rgba(247,244,236,0.6); padding:26px 6vw; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:11.5px;}
+
+  @media (prefers-reduced-motion: no-preference){.block{animation:fadeUp .5s ease both;}}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  @media(max-width:600px){.fw-row{flex-direction:column;} .fw-badge{width:auto; display:inline-block;} .pause-box{margin-left:0;}}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="brandmark"><span class="dot"></span> Svadhyaya · Content Scripts</div>
+  <div class="navlinks">
+    <a href="#framework">Framework</a>
+    <a href="#week1">Wk 1</a>
+    <a href="#week2">Wk 2</a>
+    <a href="#week3">Wk 3</a>
+    <a href="#week4">Wk 4</a>
+    <a href="#week5">Wk 5</a>
+    <a href="#launch">Launch</a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="kicker">Svadhyaya Institute of Learning</div>
+  <h1>Same story, <em>never the same hook.</em></h1>
+  <p class="lede">Every Reel below now runs on the Hook → Build-Up → Value → Payoff → CTA structure — and no two hooks use the same technique twice in a row. Each card is tagged with which hook device it's using, so the variety is visible, not accidental.</p>
+  <span class="reel-count">31 Reels · 17 Aug – 21 Sept · Zero repeated hook types back-to-back</span>
+</div>
+
+<div class="page">
+
+  <!-- ============ FRAMEWORK ============ -->
+  <div class="block" id="framework">
+    <div class="week-title"><span class="tag">Reference</span><h2>The 5-Part Framework</h2></div>
+    <p class="week-sub">Applied to every Reel from here on. The Payoff is deliberately held back until after the Value — never given away in the Hook.</p>
+
+    <div class="fw-strip">
+      <div class="fw1"><div class="fwn">1</div><div class="fwt">Hook</div></div>
+      <div class="fw2"><div class="fwn">2</div><div class="fwt">Build-Up</div></div>
+      <div class="fw3"><div class="fwn">3</div><div class="fwt">Value</div></div>
+      <div class="fw4"><div class="fwn">4</div><div class="fwt">Payoff</div></div>
+      <div class="fw5"><div class="fwn">5</div><div class="fwt">CTA</div></div>
+    </div>
+
+    <div class="week-title" style="margin-top:40px;"><span class="tag">Reference</span><h2>5 Visual Hook Types</h2></div>
+    <p class="week-sub">Five distinct ways to open a Reel visually — rotated across the calendar so the page never looks like it's repeating a format, even when the teaching point is similar.</p>
+
+    <div class="visual-grid">
+      <div class="vcard">
+        <div class="vn">Type 1</div>
+        <h4>Text-on-Screen Reveal</h4>
+        <p>Bold hook line fills the screen before Shweta appears — white/gold text on navy, one phrase at a time.</p>
+        <div class="ex">"Read it 3 times. Still confused?"</div>
+      </div>
+      <div class="vcard">
+        <div class="vn">Type 2</div>
+        <h4>POV / Character Visual</h4>
+        <p>Shweta acts out the exact student behavior — flipping pages, staring blankly — before she ever speaks.</p>
+        <div class="ex">POV: you've read the same page 4 times tonight</div>
+      </div>
+      <div class="vcard">
+        <div class="vn">Type 3</div>
+        <h4>Whiteboard / Handwritten Reveal</h4>
+        <p>Camera cuts to a notebook or whiteboard where the answer or trick gets written live as she talks.</p>
+        <div class="ex">Watch me write the answer before you finish reading the question</div>
+      </div>
+      <div class="vcard">
+        <div class="vn">Type 4</div>
+        <h4>Split-Screen Before/After</h4>
+        <p>Left side: the wrong assumption. Right side: the correct one. Both visible at once, no voiceover needed to get the point.</p>
+        <div class="ex">What you think Capital means vs. what it actually means</div>
+      </div>
+      <div class="vcard">
+        <div class="vn">Type 5</div>
+        <h4>Countdown / Pause Overlay</h4>
+        <p>An on-screen 3-2-1 timer graphic — reserved for Solve-Along Reels, forces a genuine pause instead of a passive scroll.</p>
+        <div class="ex">Pause here. Classify these 3 before I reveal.</div>
+      </div>
+    </div>
+
+    <div class="week-title" style="margin-top:40px;"><span class="tag">Reference</span><h2>Hook Variety Map</h2></div>
+    <p class="week-sub">Every Reel's hook technique at a glance — scan down the column to confirm nothing repeats back-to-back.</p>
+    <div class="hookmap">
+      <table>
+        <thead><tr><th>Date</th><th>Reel</th><th>Hook Technique</th><th>Visual Type</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">17 Aug</td><td>Why Accountancy feels like a different language</td><td>Thought-Provoking Question</td><td>Type 1 — Text Reveal</td></tr>
+          <tr><td class="mono">18 Aug</td><td>What is Capital, actually?</td><td>Myth-Busting</td><td>Type 4 — Split-Screen</td></tr>
+          <tr><td class="mono">19 Aug</td><td>Classify it before I do</td><td>Direct Challenge</td><td>Type 5 — Countdown</td></tr>
+          <tr><td class="mono">20 Aug</td><td>Solvent vs Insolvent vs Bad Debt</td><td>Controversial Mixup Callout</td><td>Type 3 — Whiteboard</td></tr>
+          <tr><td class="mono">21 Aug</td><td>Current Assets — 12-month rule</td><td>Surprising Rule</td><td>Type 1 — Text Reveal</td></tr>
+          <tr><td class="mono">23 Aug</td><td>Week 1 doubts, answered fast</td><td>Pain Point</td><td>Type 2 — POV</td></tr>
+          <tr><td class="mono">24 Aug</td><td>The re-reading trap</td><td>Pain Point</td><td>Type 2 — POV</td></tr>
+          <tr><td class="mono">25 Aug</td><td>Receivables vs Payables</td><td>Curiosity Question</td><td>Type 1 — Text Reveal</td></tr>
+          <tr><td class="mono">26 Aug</td><td>Write the journal entry before I do</td><td>Direct Challenge</td><td>Type 5 — Countdown</td></tr>
+          <tr><td class="mono">27 Aug</td><td>Fictitious Assets, actually explained</td><td>Myth-Busting</td><td>Type 3 — Whiteboard</td></tr>
+          <tr><td class="mono">28 Aug</td><td>Goods vs Purchases</td><td>Mind-Read Negation</td><td>Type 4 — Split-Screen</td></tr>
+          <tr><td class="mono">30 Aug</td><td>3 doubts from your DMs</td><td>Pain Point</td><td>Type 2 — POV</td></tr>
+          <tr><td class="mono">31 Aug</td><td>What happens when a concept clicks</td><td>Insight / Curiosity</td><td>Type 1 — Text Reveal</td></tr>
+          <tr><td class="mono">1 Sept</td><td>3 things toppers do</td><td>Controversial Statement</td><td>Type 4 — Split-Screen</td></tr>
+          <tr><td class="mono">2 Sept</td><td>Spot the error before I do</td><td>Direct Challenge</td><td>Type 5 — Countdown</td></tr>
+          <tr><td class="mono">3 Sept</td><td>Shweta's story</td><td>Personal Story / Authority</td><td>Type 2 — POV</td></tr>
+          <tr><td class="mono">4 Sept</td><td>The chapter everything depends on</td><td>Warning / Surprising Fact</td><td>Type 1 — Text Reveal</td></tr>
+          <tr><td class="mono">6 Sept</td><td>Week 3 doubts, answered fast</td><td>Pain Point</td><td>Type 2 — POV</td></tr>
+          <tr><td class="mono">7 Sept</td><td>Course announcement</td><td>Curiosity / Announcement</td><td>Type 1 — Text Reveal</td></tr>
+          <tr><td class="mono">8 Sept</td><td>Choose your batch</td><td>Relatable Identity</td><td>Type 4 — Split-Screen</td></tr>
+          <tr><td class="mono">9 Sept</td><td>Current vs Non-Current Liabilities</td><td>Direct Challenge</td><td>Type 5 — Countdown</td></tr>
+          <tr><td class="mono">10 Sept</td><td>Why no workshop, straight to class</td><td>Mind-Read Negation</td><td>Type 2 — POV</td></tr>
+          <tr><td class="mono">11 Sept</td><td>What one class actually looks like</td><td>Curiosity / Demystify</td><td>Type 1 — Text Reveal</td></tr>
+          <tr><td class="mono">12 Sept</td><td>10-second numerical</td><td>Direct Challenge</td><td>Type 5 — Countdown</td></tr>
+          <tr><td class="mono">14 Sept</td><td>Seats-left update</td><td>Fact / Urgency</td><td>Type 1 — Text Reveal</td></tr>
+          <tr><td class="mono">15 Sept</td><td>Capital or Revenue expenditure?</td><td>Direct Challenge</td><td>Type 5 — Countdown</td></tr>
+          <tr><td class="mono">16 Sept</td><td>Why "later" usually means "never"</td><td>Controversial / Confrontational</td><td>Type 2 — POV</td></tr>
+          <tr><td class="mono">18 Sept</td><td>Final call</td><td>Urgency / Deadline</td><td>Type 1 — Text Reveal</td></tr>
+          <tr><td class="mono">19 Sept</td><td>Tomorrow's the last day</td><td>Direct Address</td><td>Type 2 — POV</td></tr>
+          <tr><td class="mono">21 Sept</td><td>Batch 1 has begun</td><td>Celebratory Statement</td><td>Type 1 — Text Reveal</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ WEEK 1 ============ -->
+  <div class="block" id="week1">
+    <div class="week-title"><span class="tag">Week 1</span><h2>Reach · 17–23 Aug</h2></div>
+    <p class="week-sub">Pure value, zero pitch — six Reels, six different hook techniques.</p>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 17 Aug</span><div class="piece-tags"><span class="pill hook">Hook</span><span class="pill fmt">Reel</span><span class="pill hooktype">Thought-Provoking Question</span></div></div>
+      <div class="piece-title">Why Accountancy feels like a different language</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Why does Accountancy suddenly feel like a different language?</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"Every other Commerce subject reads like English with new vocabulary. This one reads like code — debit this, credit that — and nobody tells you why."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"Here's the fix: stop treating Debit and Credit as 'good' or 'bad.' They're just directions — left side, right side. Nothing moral about them."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Once you stop hunting for meaning in the words themselves, the rules stop feeling arbitrary — and a lot of your fear of this subject disappears with it."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Follow for more shifts like this one.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Tue 18 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span><span class="pill hooktype">Myth-Busting</span></div></div>
+      <div class="piece-title">What is Capital, actually?</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Capital isn't "the owner's money." Not really.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"Every student assumes Capital just means whatever the owner put in. That's only half true — and the other half is what trips people up in exams."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"In accounting, the business and the owner are treated as two separate entities — even in a one-person shop. So Capital is what the business owes back to the owner."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"That's why Capital sits on the liabilities side — not because it's a debt in the everyday sense, but because the business is accountable to whoever funded it."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">This one idea unlocks half the confusing entries in this chapter — save it.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Wed 19 Aug</span><div class="piece-tags"><span class="pill solve">Solve-Along</span><span class="pill fmt">Reel</span><span class="pill hooktype">Direct Challenge</span></div></div>
+      <div class="piece-title">Classify it before I do</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Pause here. Classify these 3 before I reveal.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"Three real transactions. Ten seconds each. No overthinking — just Asset, Liability, or Capital."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"1. Cash in hand. 2. Bank loan repayable in 2 years. 3. Furniture."</span></div>
+        <div class="pause-box">⏸ PAUSE HERE — write your 3 answers before continuing</div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Cash — Current Asset. The loan — Non-Current Liability. Furniture — Fixed Asset."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Comment your score out of 3 — no judgment.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Thu 20 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span><span class="pill hooktype">Controversial Mixup Callout</span></div></div>
+      <div class="piece-title">Solvent vs Insolvent vs Bad Debt</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">These 3 words get mixed up more than almost anything else in this subject.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"And it's not because they're hard — it's because they sound like they should mean similar things. They don't."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"Solvent — can pay debts, assets exceed liabilities. Insolvent — can't, liabilities have overtaken assets. Bad debt — different altogether, it's one customer not paying, not the business's overall health."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Mixing up 'insolvent' and 'bad debt' specifically is the #1 slip-up here."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Comment which one you always confuse.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Fri 21 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span><span class="pill hooktype">Surprising Rule</span></div></div>
+      <div class="piece-title">Current Assets — the 12-month rule</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">There's a 12-month rule hiding in this definition that most students miss.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"You'd think 'Current Asset' is about what the asset IS. It's actually about something else completely."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"It's about how soon it turns into cash. Cash, stock, money owed to you — if it converts within 12 months, it's Current."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Same 12-month test we'll use for liabilities in a few weeks — just flipped to the assets side."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Save this — it comes back in the next chapter too.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sun 23 Aug</span><div class="piece-tags"><span class="pill doubt">Doubt-Clearing</span><span class="pill fmt">Reel</span><span class="pill hooktype">Pain Point</span></div></div>
+      <div class="piece-title">Week 1 doubts, answered fast</div>
+      <div class="piece-body">
+        <div class="note">Pull the 3 most-repeated questions from that week's actual DMs/comments before scripting — this format only works with real, current doubts.</div>
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">These are the doubts you sent me this week — the ones you didn't ask in class.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"No filler, no long explanations. Straight answers, one after another."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">Doubt 1 → answer. Doubt 2 → answer. Fast cuts between each.</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">Save the most-asked doubt for last, for impact.</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Send yours — next one could be answered here.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WEEK 2 ============ -->
+  <div class="block" id="week2">
+    <div class="week-title"><span class="tag">Week 2</span><h2>Reach, cont'd · 24–30 Aug</h2></div>
+    <p class="week-sub">Different concepts, still no pitch — six more hook techniques, none repeating Week 1's order.</p>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 24 Aug</span><div class="piece-tags"><span class="pill hook">Hook</span><span class="pill fmt">Reel</span><span class="pill hooktype">Pain Point</span></div></div>
+      <div class="piece-title">The re-reading trap</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Read it 3 times. Still doesn't make sense?</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"If you've read the same line five times and it still doesn't click, here's what's actually going on."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"Take Discount and Rebate. Discount is reduced before the bill's even made — like a 10% off tag. Rebate is given back after — like a bulk-buy refund."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"That's the entire confusion, solved in ten seconds. Most 'hard' topics are one-line ideas dressed up in scary language."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Comment "SAME" if you've done the 3x re-read thing 😅</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Tue 25 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span><span class="pill hooktype">Curiosity Question</span></div></div>
+      <div class="piece-title">Receivables vs Payables</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Which one are you confusing right now — Receivable or Payable?</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"Everyone learns the definitions. Almost nobody can identify them fast in an actual transaction — and that's what the exam actually tests."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"Customer buys on credit, owes you — Receivable. You buy on credit, you owe them — Payable. Trick: Re-ceivable, Re-ceive — money's coming to you."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Customer hasn't paid you for last month's sale — Receivable. Got that in 2 seconds? You've got it."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Comment your answer before I said it.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Wed 26 Aug</span><div class="piece-tags"><span class="pill solve">Solve-Along</span><span class="pill fmt">Reel</span><span class="pill hooktype">Direct Challenge</span></div></div>
+      <div class="piece-title">Write the journal entry before I do</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Pause and write the entry before I do.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"One transaction, two accounts to identify. Ten seconds — go."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"Goods worth ₹5,000 sold on credit."</span></div>
+        <div class="pause-box">⏸ PAUSE HERE — write your journal entry before continuing</div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Debtor's A/c Dr ₹5,000 — To Sales A/c ₹5,000. The debtor owes us, so we debit the Receivable. Sales gets credited because revenue increases."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Comment your entry — did you get the same two accounts?</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Thu 27 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span><span class="pill hooktype">Myth-Busting</span></div></div>
+      <div class="piece-title">Fictitious Assets, actually explained</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">"Fictitious Assets" — scariest name, simplest concept in this book.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"Say 'preliminary expenses' five times fast and you'll understand why students panic the second they see this term."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"It's just money spent before the business starts earning — registration, legal fees, setup costs — spread across a few years instead of dumped into Year 1."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"That spreading is why it sits under 'Assets,' even though it isn't really something the business owns. Not fictional. Just spread out."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Which term scares you most? Tell me and I'll break it down next.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Fri 28 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span><span class="pill hooktype">Mind-Read Negation</span></div></div>
+      <div class="piece-title">Goods vs Purchases</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">You think "Goods" and "Purchases" mean the same thing. They don't.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"In everyday language, sure. In your exam, this exact mixup is where a lot of marks quietly disappear."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"'Purchases' specifically means goods bought for resale. Bought a chair for the office? That's an asset, not a 'purchase' in accounting terms."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"That one distinction is exactly where classification questions go wrong."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Save this before your next test on this chapter.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sun 30 Aug</span><div class="piece-tags"><span class="pill doubt">Doubt-Clearing</span><span class="pill fmt">Reel</span><span class="pill hooktype">Pain Point</span></div></div>
+      <div class="piece-title">3 doubts from your DMs, answered fast</div>
+      <div class="piece-body">
+        <div class="note">Pull the 3 most-repeated questions from that week's actual DMs/comments before scripting.</div>
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">3 doubts from your DMs this week — no filler.</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Send yours — next one could be answered here.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WEEK 3 ============ -->
+  <div class="block" id="week3">
+    <div class="week-title"><span class="tag">Week 3</span><h2>Trust · 31 Aug – 6 Sept</h2></div>
+    <p class="week-sub">Trust built through teaching philosophy and Shweta's own voice — not testimonials.</p>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 31 Aug</span><div class="piece-tags"><span class="pill founder">Trust</span><span class="pill fmt">Reel</span><span class="pill hooktype">Insight / Curiosity</span></div></div>
+      <div class="piece-title">What actually happens when a concept clicks</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Here's what actually happens the moment a confusing topic finally clicks.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"It's never a sudden 'genius moment' like people expect."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"It's one small explanation landing right — and suddenly two or three other topics that depended on it make sense too."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"That's really what this page is trying to do — find that one explanation per topic, so the rest stops feeling hard."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Fix one confusing topic and watch how much else gets easier.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Tue 1 Sept</span><div class="piece-tags"><span class="pill concept">Study Tactic</span><span class="pill fmt">Reel</span><span class="pill hooktype">Controversial Statement</span></div></div>
+      <div class="piece-title">3 things toppers do that aren't "study more"</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Studying more isn't what makes toppers. This is.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"None of these three things need extra hours. They need a different habit."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"One — redo the numerical you got wrong, not the ones you got right. Two — write journal entries from memory before checking the book. Three — ask the doubt the day it comes up, not three chapters later."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Small habit shifts. Not more hours."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Try one this week.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Wed 2 Sept</span><div class="piece-tags"><span class="pill solve">Solve-Along</span><span class="pill fmt">Reel</span><span class="pill hooktype">Direct Challenge</span></div></div>
+      <div class="piece-title">Spot the error before I do</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">One of these 3 journal entries is wrong. Can you spot it?</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"This is exactly the kind of mistake that costs marks even when you understand the concept."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"1. Purchases A/c Dr — To Cash A/c. 2. Furniture A/c Dr — To Cash A/c. 3. Sales A/c Dr — To Cash A/c."</span></div>
+        <div class="pause-box">⏸ PAUSE HERE — decide which entry is incorrect, and why</div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Entry 3 was backwards. Cash A/c Dr, To Sales A/c is correct — cash coming in gets debited, Sales (the source) gets credited."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Comment which one you spotted.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Thu 3 Sept</span><div class="piece-tags"><span class="pill founder">Founder</span><span class="pill fmt">Reel</span><span class="pill hooktype">Personal Story / Authority</span></div></div>
+      <div class="piece-title">Shweta's story</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">I qualified as a Chartered Accountant — and it took me a while to realize something.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"The way I was taught Accountancy in Class 11 had almost nothing to do with why I actually understood it later."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"I understood it when someone finally connected it to something real — a transaction, a business, a number that meant something. Not when I memorized a definition."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"That's the only thing I'm doing differently here — not simplifying the subject, just refusing to teach it like a list to memorize."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">I started teaching because I kept meeting 16-year-olds who'd decided they were "just bad at Accountancy" — and they weren't.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Fri 4 Sept</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span><span class="pill hooktype">Warning / Surprising Fact</span></div></div>
+      <div class="piece-title">The chapter everything else depends on</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">If this one chapter is shaky, everything after it will be too.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"Financial Statements. This is usually where the real confusion in this subject actually starts — not later, right here."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"In one line: a Balance Sheet tells you what a business owns and owes on one date. An Income Statement tells you how much it earned over a period."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Two different questions, two different reports — get that early and everything after gets easier."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Comment if you want the full breakdown next.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sun 6 Sept</span><div class="piece-tags"><span class="pill doubt">Doubt-Clearing</span><span class="pill fmt">Reel</span><span class="pill hooktype">Pain Point</span></div></div>
+      <div class="piece-title">Week 3 doubts, answered fast</div>
+      <div class="piece-body">
+        <div class="note">Same format — pull the week's real, most-repeated DMs before scripting.</div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Send yours for the next one.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WEEK 4 ============ -->
+  <div class="block" id="week4">
+    <div class="week-title"><span class="tag">Week 4</span><h2>Enrollment Opens · 7–13 Sept</h2></div>
+    <p class="week-sub">Course details go public, still spoken to camera — never a static graphic doing the talking.</p>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 7 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span><span class="pill hooktype">Curiosity / Announcement</span></div></div>
+      <div class="piece-title">Course announcement</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Something's starting on the 21st — and it's not a workshop.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"You've been watching these explainers for weeks. Here's what happens next."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"Live online Class 11 Accountancy — 12 classes a month, Monday, Wednesday, Friday. ₹6,500 a month. Pick 7:30–9 AM or 7–8:30 PM."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Straight into it, taught directly by me."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">DM "COURSE" or check the link in bio.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Tue 8 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span><span class="pill hooktype">Relatable Identity</span></div></div>
+      <div class="piece-title">Choose your batch</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Morning person or night owl? Either way, we've got a slot.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"This isn't a marketing gimmick — it's genuinely the same course, twice."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"7:30–9 AM if your brain works best right after waking up. 7–8:30 PM if you can't think straight until evening."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Same classes, same syllabus, same teacher. Just pick whichever version of you shows up sharper."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Pick your slot — link in bio.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Wed 9 Sept</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span><span class="pill hooktype">Direct Challenge</span></div></div>
+      <div class="piece-title">Current vs Non-Current Liabilities</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Quick test — an 8-month loan. Current or Non-Current?</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"This exact question shows up in almost every board paper."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"Current. Anything due within 12 months is Current, no matter how big the amount. People assume 'big loan = long-term' — that's the trap."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Non-Current is purely about the timeline, never the size."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Comment your answer before I gave it away 👀</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Thu 10 Sept</span><div class="piece-tags"><span class="pill founder">Founder</span><span class="pill fmt">Reel</span><span class="pill hooktype">Mind-Read Negation</span></div></div>
+      <div class="piece-title">Why no workshop, straight to class</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">You're probably wondering why there's no free demo before this course starts.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"A few of you have asked directly, so here's the honest answer."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"You already know what you're looking for — you've been watching these videos for weeks, you know how I teach."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"A workshop would just be one more thing standing between you and starting. So instead — we're starting. 21st September, straight into it."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Specific question before enrolling? DM me directly.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Fri 11 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span><span class="pill hooktype">Curiosity / Demystify</span></div></div>
+      <div class="piece-title">What one class actually looks like</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">No mystery about what you're actually signing up for.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"Here's exactly what happens in 90 minutes, every single class."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"First, the concept with real examples. Then, numericals solved together live. Last 15 minutes — open doubts, yours specifically."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Same format, every class. No surprises."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Link in bio to enroll.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sat 12 Sept</span><div class="piece-tags"><span class="pill solve">Solve-Along</span><span class="pill fmt">Reel</span><span class="pill hooktype">Direct Challenge</span></div></div>
+      <div class="piece-title">10-second numerical — solve before the reveal</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">10-second numerical. Ready?</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"One formula, easy to forget the second the exam gets stressful."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"Opening capital ₹50,000. Profit for the year ₹12,000. Drawings ₹5,000. What's the closing capital?"</span></div>
+        <div class="pause-box">⏸ PAUSE HERE — work out the closing capital before continuing</div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Closing Capital = Opening Capital + Profit − Drawings = 50,000 + 12,000 − 5,000 = ₹57,000."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Got it right? Comment your answer.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sun 13 Sept</span><div class="piece-tags"><span class="pill promo">WhatsApp</span><span class="pill fmt">Broadcast</span></div></div>
+      <div class="piece-title">Enrollment update</div>
+      <div class="piece-body">
+        <div class="note">Not a Reel — direct message, kept in the plan since it's a different channel entirely. Framework doesn't apply here.</div>
+        <div class="msg-bubble">Hi! Quick update on the Class 11 Accountancy course starting <b>21 September</b>.<br><br>₹6,500/month · 12 classes (Mon/Wed/Fri) · Choose 7:30–9:00 AM or 7:00–8:30 PM.<br><br>Seats are limited on both timings. Reply <b>"IN"</b> and we'll send you the enrollment link, or reply with any question first — happy to help you decide.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WEEK 5 ============ -->
+  <div class="block" id="week5">
+    <div class="week-title"><span class="tag">Week 5</span><h2>Closing Enrollment · 14–20 Sept</h2></div>
+    <p class="week-sub">Real, honest urgency, spoken on camera — the deadline is genuine, so the messaging stays genuine too.</p>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 14 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span><span class="pill hooktype">Fact / Urgency</span></div></div>
+      <div class="piece-title">Seats-left update</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Morning batch: 6 left. Evening batch: 9 left.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"Both batches for the 21st September start are genuinely filling up."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"If you've been deciding, here's exactly where things stand right now."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"This is a good moment to actually decide."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Link in bio to enroll.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Tue 15 Sept</span><div class="piece-tags"><span class="pill solve">Solve-Along</span><span class="pill fmt">Reel</span><span class="pill hooktype">Direct Challenge</span></div></div>
+      <div class="piece-title">Capital or Revenue expenditure?</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Capital or Revenue expenditure? Pause and decide.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"This distinction is one of the most tested ideas in this chapter."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"A business spends ₹20,000 repainting its existing office."</span></div>
+        <div class="pause-box">⏸ PAUSE HERE — decide Capital or Revenue before continuing</div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Revenue expenditure. Repainting maintains, it doesn't add new value or extend the asset's life. A new floor would've been Capital."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Comment your answer before the reveal.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Wed 16 Sept</span><div class="piece-tags"><span class="pill founder">Reflection</span><span class="pill fmt">Reel</span><span class="pill hooktype">Controversial / Confrontational</span></div></div>
+      <div class="piece-title">Why "later" usually just means "never"</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">A few of you keep telling me "later," not "no." Let's talk about that.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"I've noticed a pattern in the students who wait for the 'right moment.'"</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"They usually wait until exams are already stressful. There isn't really a perfect time to start."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"There's just the time you actually decide."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">No judgment either way — just don't let "later" quietly become "never."</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Fri 18 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span><span class="pill hooktype">Urgency / Deadline</span></div></div>
+      <div class="piece-title">Final call</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Enrollment closes tomorrow night, midnight.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"Classes start Monday. This is genuinely the last window."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"After tomorrow, Batch 1 is closed until the next intake opens."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"No new seats until then."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Link in bio, or WhatsApp us directly.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sat 19 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span><span class="pill hooktype">Direct Address</span></div></div>
+      <div class="piece-title">Tomorrow's the last day</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">If you've been meaning to join — tomorrow's the actual last day.</span></div>
+        <div class="fw-row"><span class="fw-badge b-build">Build-Up</span><span class="fw-text">"After that, this batch is closed, and the next one won't start for a while."</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"No pressure if it's genuinely not the right time."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"But if it's just been sitting in your 'I'll do it later' list — later is tomorrow."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">Being honest about the deadline so you decide with real information.</span></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sun 20 Sept</span><div class="piece-tags"><span class="pill promo">WhatsApp</span><span class="pill fmt">Broadcast (final)</span></div></div>
+      <div class="piece-title">Last call</div>
+      <div class="piece-body">
+        <div class="msg-bubble">Enrollment closes <b>tonight at midnight</b>. Classes begin tomorrow, Monday 21 September.<br><br>If you've been deciding, this is the moment — reply <b>"IN"</b> and we'll get you set up before the first class.<br><br>If you have one last question before deciding, ask it now, I'll answer tonight.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LAUNCH ============ -->
+  <div class="block" id="launch">
+    <div class="week-title"><span class="tag">Mon 21 Sept</span><h2>Launch Day</h2></div>
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 21 Sept</span><div class="piece-tags"><span class="pill founder">Launch</span><span class="pill fmt">Reel</span><span class="pill hooktype">Celebratory Statement</span></div></div>
+      <div class="piece-title">Batch 1 has begun</div>
+      <div class="piece-body">
+        <div class="fw-row"><span class="fw-badge b-hook">Hook</span><span class="fw-text onscreen-line">Batch 1 just started.</span></div>
+        <div class="fw-row"><span class="fw-badge b-value">Value</span><span class="fw-text">"Two timings, one classroom energy."</span></div>
+        <div class="fw-row"><span class="fw-badge b-payoff">Payoff</span><span class="fw-text">"Welcome to everyone who's here."</span></div>
+        <div class="fw-row"><span class="fw-badge b-cta">CTA</span><span class="fw-text">See you in class.</span></div>
+      </div>
+    </div>
+
+    <div class="launch-banner">
+      <div class="lt">One Week Later — Retention Nudge (Reel/Story)</div>
+      <div>"Know someone who's still deciding? Send them this — the next batch opens once this one's full."</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div>Svadhyaya Institute of Learning — Content Scripts on the Viral Framework, prepared Aug 2026</div>
+  <div>Print to PDF from your browser for a shareable copy</div>
+</footer>
+
+</body>
+</html>
