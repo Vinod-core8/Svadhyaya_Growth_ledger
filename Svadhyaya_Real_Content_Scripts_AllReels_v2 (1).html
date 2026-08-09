@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Svadhyaya — Real Content Scripts (All Reels)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E1F3B; --navy-2:#152A4D;
+    --paper:#F7F4EC; --paper-2:#EFE9D8;
+    --line: rgba(14,31,59,0.14); --line-dark: rgba(247,244,236,0.14);
+    --gold:#C79A2E; --gold-light:#E7C766;
+    --ink:#1C2430; --ink-soft:#33404F; --muted:#6E7280;
+    --concept:#2A5FA8; --concept-bg:#E9F0FA;
+    --hook:#A8412F; --hook-bg:#F5E5E0;
+    --founder:#7A4B8C; --founder-bg:#F1E7F5;
+    --promo:#96660E; --promo-bg:#FBF0DC;
+    --doubt:#1E5E5E; --doubt-bg:#E4F1F1;
+    --solve:#2F6B4F; --solve-bg:#E7F2EB;
+    --card:#FFFFFF; --r:10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--navy); color:var(--ink-soft); font-family:'IBM Plex Sans',sans-serif; -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--gold); color:var(--navy);}
+
+  .navbar{position:sticky; top:0; z-index:50; background:var(--navy); border-bottom:1px solid var(--line-dark); padding:14px 6vw; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  .navbar .brandmark{display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; color:var(--paper); font-size:12px; letter-spacing:.14em; text-transform:uppercase;}
+  .navbar .brandmark .dot{width:8px; height:8px; border-radius:50%; background:var(--gold);}
+  .navlinks{display:flex; gap:16px; flex-wrap:wrap;}
+  .navlinks a{color:rgba(247,244,236,0.7); text-decoration:none; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase; padding-bottom:3px; border-bottom:1px solid transparent; transition:.2s;}
+  .navlinks a:hover{color:var(--gold-light); border-color:var(--gold-light);}
+
+  .hero{background: radial-gradient(1100px 480px at 12% -10%, rgba(199,154,46,0.16), transparent 60%), radial-gradient(900px 460px at 92% 0%, rgba(42,95,168,0.16), transparent 55%), var(--navy); color:var(--paper); padding:64px 6vw 44px;}
+  .hero .kicker{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-light); display:flex; align-items:center; gap:12px; margin-bottom:18px;}
+  .hero .kicker::before{content:""; width:32px; height:1px; background:var(--gold-light); display:inline-block;}
+  .hero h1{font-family:'Fraunces',serif; font-weight:600; font-size:clamp(32px,5vw,52px); line-height:1.06; margin:0 0 14px; max-width:22ch;}
+  .hero h1 em{font-style:italic; font-weight:400; color:var(--gold-light);}
+  .hero p.lede{max-width:64ch; font-size:15.5px; line-height:1.65; color:rgba(247,244,236,0.78); margin:0 0 22px;}
+  .reel-count{display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold-light); background:rgba(247,244,236,0.08); border:1px solid var(--line-dark); padding:8px 14px; border-radius:20px;}
+  .assume-note{margin-top:18px; font-size:12.5px; color:rgba(247,244,236,0.65); border-top:1px solid var(--line-dark); padding-top:14px; max-width:64ch; line-height:1.55;}
+
+  .page{background:var(--paper); background-image:linear-gradient(var(--line) 1px, transparent 1px); background-size:100% 40px;}
+  .block{max-width:980px; margin:0 auto; padding:56px 6vw 8px;}
+  .week-title{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px;}
+  .tag{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--gold-light); background:var(--navy); padding:3px 10px; border-radius:4px; letter-spacing:.06em;}
+  h2{font-family:'Fraunces',serif; font-weight:600; font-size:clamp(22px,2.8vw,29px); margin:0; color:var(--navy);}
+  .week-sub{color:var(--muted); font-size:14px; max-width:680px; margin:8px 0 28px; line-height:1.6;}
+
+  .piece{background:var(--card); border:1px solid var(--line); border-radius:var(--r); margin-bottom:20px; overflow:hidden;}
+  .piece-head{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px 22px; background:#FCFBF6; border-bottom:1px solid var(--line);}
+  .piece-date{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--navy); font-weight:600;}
+  .piece-tags{display:flex; gap:6px; flex-wrap:wrap;}
+  .pill{font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.05em; padding:3px 9px; border-radius:20px; white-space:nowrap;}
+  .pill.concept{background:var(--concept-bg); color:var(--concept);}
+  .pill.hook{background:var(--hook-bg); color:var(--hook);}
+  .pill.founder{background:var(--founder-bg); color:var(--founder);}
+  .pill.promo{background:var(--promo-bg); color:var(--promo);}
+  .pill.doubt{background:var(--doubt-bg); color:var(--doubt);}
+  .pill.solve{background:var(--solve-bg); color:var(--solve);}
+  .pill.fmt{background:var(--paper-2); color:var(--ink-soft);}
+  .pause-box{border:1.5px dashed var(--solve); background:var(--solve-bg); border-radius:8px; padding:10px 14px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--solve); margin-top:10px;}
+
+  .piece-title{font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:var(--navy); padding:16px 22px 4px;}
+  .piece-body{padding:4px 22px 20px;}
+
+  .field{margin-top:14px;}
+  .field .fl{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); margin-bottom:6px;}
+  .onscreen{background:var(--navy); color:var(--gold-light); font-family:'IBM Plex Mono',monospace; font-size:13px; padding:9px 14px; border-radius:6px; display:inline-block;}
+  .script blockquote{margin:0; padding-left:16px; border-left:3px solid var(--gold); color:var(--ink); font-size:14.5px; line-height:1.7;}
+  .script blockquote p{margin:0 0 10px;}
+  .script blockquote p:last-child{margin-bottom:0;}
+  .note{background:var(--promo-bg); color:#7A5808; border-radius:8px; padding:10px 14px; font-size:12.5px; line-height:1.5; margin-top:10px;}
+  .caption-text{font-size:14px; color:var(--ink-soft); line-height:1.6;}
+  .cta-text{font-size:13.5px; color:var(--founder); font-weight:600;}
+  .outline-list{margin:0; padding-left:0; list-style:none; font-size:13.8px;}
+  .outline-list li{padding:8px 0; border-bottom:1px dashed var(--line); display:flex; gap:14px;}
+  .outline-list li:last-child{border-bottom:none;}
+  .outline-list .t{font-family:'IBM Plex Mono',monospace; color:var(--muted); flex-shrink:0; width:80px;}
+
+  .msg-bubble{background:#E7F0E9; border-radius:14px 14px 14px 4px; padding:14px 18px; font-size:14px; color:var(--ink); line-height:1.65; max-width:560px;}
+
+  .launch-banner{background:linear-gradient(90deg,var(--navy),var(--navy-2)); color:var(--paper); border-radius:var(--r); padding:20px 24px; margin:8px 0 40px; border:1px solid var(--gold);}
+  .launch-banner .lt{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold-light); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;}
+
+  footer{background:var(--navy); color:rgba(247,244,236,0.6); padding:26px 6vw; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:11.5px;}
+
+  @media (prefers-reduced-motion: no-preference){.block{animation:fadeUp .5s ease both;}}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="brandmark"><span class="dot"></span> Svadhyaya · Content Scripts</div>
+  <div class="navlinks">
+    <a href="#week1">Week 1</a>
+    <a href="#week2">Week 2</a>
+    <a href="#week3">Week 3</a>
+    <a href="#week4">Week 4</a>
+    <a href="#week5">Week 5</a>
+    <a href="#launch">Launch</a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="kicker">Svadhyaya Institute of Learning</div>
+  <h1>Every single post, <em>a Reel.</em></h1>
+  <p class="lede">No testimonials, no long-format video, no carousels or static posters carrying the message — every piece below is written to be filmed. Announcements, course details, and even doubt-clearing are all scripted as Reels, same voice throughout. One Reel a week is now a <b>Solve-Along</b> — a real problem, a pause, then the reveal — so following the page means actually practicing, not just watching.</p>
+  <span class="reel-count">31 Reels · 17 Aug – 21 Sept · 5 Solve-Along</span>
+  <div class="assume-note">Calendar now starts <b>Monday, 17 August</b> — one extra reach week added at the front. Course launch stays <b>Monday, 21 September</b>, so the Mon/Wed/Fri class pattern and the ads flight (11–20 Sept) are unchanged. If you meant the course itself should start on the 17th instead, say so and this gets rebuilt around that date.</div>
+</div>
+
+<div class="page">
+
+  <!-- ============ WEEK 1 (NEW) ============ -->
+  <div class="block" id="week1">
+    <div class="week-title"><span class="tag">Week 1</span><h2>Reach · 17–23 Aug</h2></div>
+    <p class="week-sub">The new lead-in week. Pure value, zero pitch — five more Reels before trust-building begins.</p>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 17 Aug</span><div class="piece-tags"><span class="pill hook">Hook</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Why Accountancy feels like a different language</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text (0–2s)</div><span class="onscreen">Why does Accountancy suddenly feel like a different language?</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Every other subject in Commerce — Economics, Business Studies — reads like English with new vocabulary. Accountancy reads like code. Debit this, credit that, and none of it explains why."</p>
+            <p>"Here's the one shift that fixes it: stop thinking of Debit and Credit as 'good' or 'bad.' They're just directions — left side, right side. Once you stop hunting for meaning in the words themselves, the rules stop feeling arbitrary."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">This one shift in how you think about Debit and Credit changes everything else in this subject. Follow for more.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Tue 18 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">What is Capital, actually?</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">Capital isn't "the owner's money" — it's a little stranger than that</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Capital isn't just 'the owner's money.' It's what the business owes back to the owner — because in accounting, the business and the owner are treated as two separate entities, even in a small shop."</p>
+            <p>"That's why Capital sits on the liabilities side of the equation. Not because it's a debt in the everyday sense, but because the business is accountable to the person who funded it."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">This single idea — business and owner are separate — explains half the confusing entries in this chapter.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Wed 19 Aug</span><div class="piece-tags"><span class="pill solve">Solve-Along</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Classify it before I do</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">Pause here. Classify these 3 items before I reveal.</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Three items, one at a time. For each, decide — Asset, Liability, or Capital."</p>
+            <p><em>(On-screen, one per beat)</em> "1. Cash in hand. 2. Loan from the bank, repayable in 2 years. 3. Furniture."</p>
+            <p>"Pause the video and write your answers — I'll reveal in 3… 2… 1."</p>
+          </blockquote>
+        </div>
+        <div class="pause-box">⏸ PAUSE HERE — write your 3 answers before continuing</div>
+        <div class="field script" style="margin-top:14px;">
+          <div class="fl">Reveal</div>
+          <blockquote>
+            <p>"Cash in hand — Current Asset. Bank loan repayable in 2 years — Non-Current Liability. Furniture — Fixed Asset."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">How many did you get right? Comment your score out of 3 — no judgment, that's exactly what this is for.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Thu 20 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Solvent vs Insolvent vs Bad Debt</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">3 terms, one exam trap</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Solvent means a business can pay its debts — assets are more than liabilities."</p>
+            <p>"Insolvent means it can't — liabilities have overtaken assets."</p>
+            <p>"Bad debt is different altogether — it's not about the business, it's a specific customer who's not going to pay what they owe."</p>
+            <p>"Mixing up 'insolvent' and 'bad debt' is one of the most common slip-ups in this chapter."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Three words, three very different meanings. Comment which one you always mix up.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Fri 21 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Current Assets — the 12-month rule</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">Current Assets — the 12-month rule</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Current Assets are anything a business expects to convert to cash, sell, or use up within 12 months — cash, stock, and money customers still owe you."</p>
+            <p>"The test isn't what the asset IS, it's how soon it turns back into cash. That's the part students forget under exam pressure."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Same 12-month test we'll use for liabilities in a few weeks — now applied to the assets side.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sun 23 Aug</span><div class="piece-tags"><span class="pill doubt">Doubt-Clearing</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Week 1 doubts, answered fast</div>
+      <div class="piece-body">
+        <div class="note">Pull the 3 most-repeated questions from that week's actual DMs/comments before scripting — this format only works with real, current doubts.</div>
+        <div class="field">
+          <div class="fl">Structure</div>
+          <ul class="outline-list">
+            <li><span class="t">0–3s</span> On-screen: "3 doubts you sent me this week"</li>
+            <li><span class="t">Doubt 1</span> State the question on screen, answer in one clean line, cut fast</li>
+            <li><span class="t">Doubt 2</span> Same pattern — question, direct answer, cut</li>
+            <li><span class="t">Doubt 3</span> Same pattern, end on the most common one for impact</li>
+          </ul>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">These came straight from your DMs this week. Send yours — next one could be answered here.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WEEK 2 (was Week 1) ============ -->
+  <div class="block" id="week2">
+    <div class="week-title"><span class="tag">Week 2</span><h2>Reach, cont'd · 24–30 Aug</h2></div>
+    <p class="week-sub">Still pure value — different concepts, same job: earn the scroll-stop and the follow.</p>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 24 Aug</span><div class="piece-tags"><span class="pill hook">Hook</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">The re-reading trap</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text (0–2s)</div><span class="onscreen">Read it 3 times. Still doesn't make sense?</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p><em>(Shweta, sitting with a textbook, half-smiling like she's heard this before)</em><br>"If you've read the same line in your Accountancy book five times and it still doesn't click — it's not you. It's how it's been explained."</p>
+            <p><em>(Cut to a notebook, quick handwritten example)</em><br>"Take Discount and Rebate. Everyone mixes these up. Discount is what you reduce before the bill is even made — like a 10% off tag. Rebate is what you give back after — like a refund for buying in bulk. That's it. That's the entire confusion, solved in ten seconds."</p>
+            <p><em>(Back to camera)</em><br>"Most 'hard' topics in this subject are actually one-line ideas dressed up in scary language."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Real talk — most of you don't have an "Accountancy problem." You have a "nobody explained it simply" problem. Save this before your next test.</div></div>
+        <div class="field"><div class="fl">CTA</div><div class="cta-text">Comment "SAME" if you've done the 3x re-read thing 😅</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Tue 25 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Receivables vs Payables</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text (0–2s)</div><span class="onscreen">Receivable or Payable? Most get this wrong in 2 seconds.</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"A customer buys from you on credit — they owe you money. That's a Receivable."</p>
+            <p>"You buy from a supplier on credit — you owe them money. That's a Payable."</p>
+            <p>"Quick trick: Re-ceivable, Re-ceive. If 'receive' is hiding in the word, money's coming toward you."</p>
+            <p><em>(On-screen quick test)</em> "Customer hasn't paid you yet for last month's sale — which one?" <em>(1-second pause)</em> "Receivable."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">The exam doesn't test the definition, it tests whether you can spot it in a transaction. Comment your answer before I said it out loud — I'll test you first next time.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Wed 26 Aug</span><div class="piece-tags"><span class="pill solve">Solve-Along</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Write the journal entry before I do</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">Goods worth ₹5,000 sold on credit. Pause and write the entry.</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Goods worth ₹5,000 sold on credit. Take 10 seconds — which account is debited, which is credited?"</p>
+          </blockquote>
+        </div>
+        <div class="pause-box">⏸ PAUSE HERE — write your journal entry before continuing</div>
+        <div class="field script" style="margin-top:14px;">
+          <div class="fl">Reveal</div>
+          <blockquote>
+            <p>"Debtor's A/c Dr ₹5,000 — To Sales A/c ₹5,000."</p>
+            <p>"The debtor now owes us — that's a Receivable increasing, so we debit it. Sales account gets credited because revenue increases."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Comment your entry before you scroll — did you get the same two accounts?</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Thu 27 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Fictitious Assets, actually explained</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text (0–2s)</div><span class="onscreen">"Fictitious Assets" — scariest name, simplest concept</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Preliminary expenses. Say that five times fast — and you'll understand why students panic the moment they see 'Fictitious Assets.'"</p>
+            <p>"Here's all it means: money a business spends before it even starts earning — registration, legal fees, setup costs. Since it's unfair to dump all of that cost into Year 1's profit, we spread it across a few years. That spreading is why it sits under 'Assets' — even though it isn't really something the business owns."</p>
+            <p>"Not fictional. Not confusing. Just… spread out."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">The name is doing all the intimidating. The concept takes 30 seconds. Which term scares you the most? Tell me and I'll break it down next.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Fri 28 Aug</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Goods vs Purchases</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text (0–2s)</div><span class="onscreen">"Goods" and "Purchases" aren't the same word in Accountancy</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"In everyday language, we use these two interchangeably. In your exam, they're not the same thing."</p>
+            <p>"'Purchases' specifically means goods bought for resale — not just anything a business buys. Bought a chair for the office? That's an asset, not a 'purchase' in accounting terms."</p>
+            <p>"That one distinction is exactly where a lot of classification questions go wrong."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Small word, big exam trap. Save this before your next test on this chapter.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sun 30 Aug</span><div class="piece-tags"><span class="pill doubt">Doubt-Clearing</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">3 doubts from your DMs, answered fast</div>
+      <div class="piece-body">
+        <div class="note">Pull the 3 most-repeated questions from that week's actual DMs/comments before scripting.</div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">These came straight from your DMs this week. Send yours — next one could be answered here.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WEEK 3 (was Week 2) ============ -->
+  <div class="block" id="week3">
+    <div class="week-title"><span class="tag">Week 3</span><h2>Trust · 31 Aug – 6 Sept</h2></div>
+    <p class="week-sub">Trust built through teaching philosophy and Shweta's own voice — not testimonials.</p>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 31 Aug</span><div class="piece-tags"><span class="pill founder">Trust</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">What actually happens when a concept clicks</div>
+      <div class="piece-body">
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"There's a pattern I see almost every time a topic finally makes sense to a student — it's never a sudden 'genius moment.'"</p>
+            <p>"It's one small explanation landing right, and suddenly two or three other topics that depended on it make sense too."</p>
+            <p>"That's really what this page is trying to do — find that one explanation for each topic, so the rest stops feeling hard."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Understanding compounds. Fix one confusing topic and watch how much else gets easier.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Tue 1 Sept</span><div class="piece-tags"><span class="pill concept">Study Tactic</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">3 things toppers do that aren't "study more"</div>
+      <div class="piece-body">
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"One — they redo the numerical they got wrong, not the ones they already got right."</p>
+            <p>"Two — they write journal entries from memory before checking the book, not after."</p>
+            <p>"Three — they ask the doubt the day it comes up, not three chapters later when it's piled up."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">None of these need extra hours. They need a different habit. Try one this week.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Wed 2 Sept</span><div class="piece-tags"><span class="pill solve">Solve-Along</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Spot the error before I do</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">One of these 3 entries has a classification error. Can you spot it?</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p><em>(Show 3 journal entries on screen, one at a time)</em></p>
+            <p>"1. Purchases A/c Dr — To Cash A/c. 2. Furniture A/c Dr — To Cash A/c. 3. Sales A/c Dr — To Cash A/c."</p>
+            <p>"One of these is wrong. Pause and figure out which."</p>
+          </blockquote>
+        </div>
+        <div class="pause-box">⏸ PAUSE HERE — decide which entry is incorrect, and why</div>
+        <div class="field script" style="margin-top:14px;">
+          <div class="fl">Reveal</div>
+          <blockquote>
+            <p>"Entry 3 is wrong. Cash A/c Dr — To Sales A/c is the correct version. Cash coming in should be debited, and Sales — the source of that cash — should be credited. It was written backwards."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">This is exactly the kind of mistake that costs marks even when you understand the concept. Comment which one you spotted.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Thu 3 Sept</span><div class="piece-tags"><span class="pill founder">Founder</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Shweta's story</div>
+      <div class="piece-body">
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"I qualified as a Chartered Accountant. And somewhere in that process, I realized something — the way I was taught Accountancy in Class 11 had almost nothing to do with why I actually understood it later."</p>
+            <p>"I understood it when someone finally connected it to something real — a transaction, a business, a number that meant something. Not when I memorized a definition."</p>
+            <p>"That's the only thing I'm trying to do differently here. Not simplify the subject — just stop teaching it like a list of things to remember."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">I didn't start teaching because I ran out of CA work. I started because I kept meeting 16-year-olds who'd decided they were "just bad at Accountancy" — and they weren't.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Fri 4 Sept</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">The chapter everything else depends on</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text (0–2s)</div><span class="onscreen">If this chapter is shaky, everything after it will be too</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Financial Statements. If this feels shaky, that's usually where the real confusion in this subject starts — not later."</p>
+            <p>"In one line: a Balance Sheet tells you what a business owns and owes on one date. An Income Statement tells you how much it earned over a period. Two different questions, two different reports."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Get this one right early — it makes everything after it easier. Comment if you want the full breakdown next.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sun 6 Sept</span><div class="piece-tags"><span class="pill doubt">Doubt-Clearing</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Week 3 doubts, answered fast</div>
+      <div class="piece-body">
+        <div class="note">Same format — pull the week's real, most-repeated DMs before scripting.</div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Same as before — real questions, no filler. Send yours for the next one.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WEEK 4 (was Week 3) ============ -->
+  <div class="block" id="week4">
+    <div class="week-title"><span class="tag">Week 4</span><h2>Enrollment Opens · 7–13 Sept</h2></div>
+    <p class="week-sub">Course details go public, still spoken to camera — never a static graphic doing the talking.</p>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 7 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Course announcement</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text (0–2s)</div><span class="onscreen">Live online classes start 21 September</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Starting Monday, 21st September — live online Class 11 Accountancy classes. 12 classes a month, Monday, Wednesday, Friday. ₹6,500 a month."</p>
+            <p>"Pick your batch — 7:30 to 9 AM, or 7 to 8:30 PM. Straight into it, taught directly by me."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">All the details, one Reel. DM "COURSE" or check the link in bio.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Tue 8 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Choose your batch</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">Morning person or night owl? Either way, we've got a slot.</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Some of you study best right after you wake up, before the day gets noisy — that's the 7:30 to 9 AM batch."</p>
+            <p>"Some of you can't think straight until evening, once school's actually done — that's the 7 to 8:30 PM batch."</p>
+            <p>"Same classes. Same syllabus. Just pick whichever version of you shows up sharper."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Not a gimmick — genuinely the same course, same pace, same teacher. Pick the time your brain actually works.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Wed 9 Sept</span><div class="piece-tags"><span class="pill concept">Concept</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Current vs Non-Current Liabilities</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">The one liabilities question that's in almost every paper</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Quick test — a business takes a loan repayable in 8 months. Current or Non-Current liability?" <em>(pause, 1 second)</em></p>
+            <p>"Current. Anything due within 12 months is Current, no matter how big the amount is. People assume 'big loan = long-term' — that's the trap."</p>
+            <p>"Non-Current is purely about the timeline, not the size."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">This exact confusion shows up in board exams almost every year. Comment your answer before I gave it away 👀</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Thu 10 Sept</span><div class="piece-tags"><span class="pill founder">Founder</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Why no workshop, straight to class</div>
+      <div class="piece-body">
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"A few of you have asked why there's no free demo or workshop before this course starts. Honestly — you already know what you're looking for. You've been watching these videos for weeks. You know how I teach."</p>
+            <p>"A workshop would just be one more thing standing between you and actually starting. So instead — we're starting. 21st September, straight into it."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">If you've been following along and still have a specific question before enrolling, DM me directly — happy to answer before you decide, no pressure either way.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Fri 11 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">What one class actually looks like</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">No mystery about what you're signing up for</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"90 minutes, three parts. First, we go through the concept for the day with real examples."</p>
+            <p>"Then, we solve numericals together, live, on screen."</p>
+            <p>"Last 15 minutes are open for doubts — yours specifically, not just generic ones."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">This is exactly the format, every class. Link in bio to enroll.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sat 12 Sept</span><div class="piece-tags"><span class="pill solve">Solve-Along</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">10-second numerical — solve before the reveal</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">10-second numerical. Ready?</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Opening capital ₹50,000. Profit for the year ₹12,000. Drawings ₹5,000. What's the closing capital?"</p>
+          </blockquote>
+        </div>
+        <div class="pause-box">⏸ PAUSE HERE — work out the closing capital before continuing</div>
+        <div class="field script" style="margin-top:14px;">
+          <div class="fl">Reveal</div>
+          <blockquote>
+            <p>"Closing Capital = Opening Capital + Profit − Drawings = 50,000 + 12,000 − 5,000 = ₹57,000."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Simple formula, but easy to forget under exam pressure. Got it right? Comment your answer.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sun 13 Sept</span><div class="piece-tags"><span class="pill promo">WhatsApp</span><span class="pill fmt">Broadcast</span></div></div>
+      <div class="piece-title">Enrollment update</div>
+      <div class="piece-body">
+        <div class="note">Not a Reel — direct message, kept in the plan since it's a different channel entirely.</div>
+        <div class="msg-bubble">Hi! Quick update on the Class 11 Accountancy course starting <b>21 September</b>.<br><br>₹6,500/month · 12 classes (Mon/Wed/Fri) · Choose 7:30–9:00 AM or 7:00–8:30 PM.<br><br>Seats are limited on both timings. Reply <b>"IN"</b> and we'll send you the enrollment link, or reply with any question first — happy to help you decide.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WEEK 5 (was Week 4) ============ -->
+  <div class="block" id="week5">
+    <div class="week-title"><span class="tag">Week 5</span><h2>Closing Enrollment · 14–20 Sept</h2></div>
+    <p class="week-sub">Real, honest urgency, spoken on camera — the deadline is genuine, so the messaging stays genuine too.</p>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 14 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Seats-left update</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">Morning batch: 6 left. Evening batch: 9 left.</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Quick update — both batches for the 21st September start are filling up. Morning slot has 6 seats left, evening has 9."</p>
+            <p>"If you've been deciding, this is a good moment to actually decide."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Link in bio to enroll.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Tue 15 Sept</span><div class="piece-tags"><span class="pill solve">Solve-Along</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Capital or Revenue expenditure?</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">Capital or Revenue expenditure? Pause and decide.</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"A business spends ₹20,000 repainting its existing office. Capital or Revenue expenditure? Pause and decide."</p>
+          </blockquote>
+        </div>
+        <div class="pause-box">⏸ PAUSE HERE — decide Capital or Revenue before continuing</div>
+        <div class="field script" style="margin-top:14px;">
+          <div class="fl">Reveal</div>
+          <blockquote>
+            <p>"Revenue expenditure. Repainting doesn't add new value or extend the asset's life — it just maintains it. If they'd built a new floor instead, that would be Capital."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">This Capital vs Revenue distinction is one of the most tested ideas in this chapter. Comment your answer before the reveal.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Wed 16 Sept</span><div class="piece-tags"><span class="pill founder">Reflection</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Why "later" usually just means "never"</div>
+      <div class="piece-body">
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"A few of you have told me you're planning to join, just not this week. I get it — but here's what I've noticed."</p>
+            <p>"The students who wait for the 'right moment' to start usually wait until exams are already stressful. There isn't really a perfect time to start. There's just the time you actually decide."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">No judgment if it's genuinely not the right time. Just don't let "later" quietly become "never."</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Fri 18 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Final call</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">On-Screen Text</div><span class="onscreen">Enrollment closes 20 September, midnight</span></div>
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"Classes start Monday. Enrollment for Batch 1 closes tomorrow night."</p>
+            <p>"After that, this batch is closed until the next intake opens."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Link in bio, or WhatsApp us directly if you have a last question.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sat 19 Sept</span><div class="piece-tags"><span class="pill promo">Promo</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Tomorrow's the last day</div>
+      <div class="piece-body">
+        <div class="field script">
+          <div class="fl">Script</div>
+          <blockquote>
+            <p>"If you've been meaning to enroll and just haven't gotten around to it — tomorrow's the actual last day. After that, this batch is closed, and the next one won't start for a while."</p>
+            <p>"No pressure if it's genuinely not the right time. But if it's just been sitting in your 'I'll do it later' list — later is tomorrow."</p>
+          </blockquote>
+        </div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">Being honest about the deadline because I'd rather you decide with real information than miss it by accident.</div></div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Sun 20 Sept</span><div class="piece-tags"><span class="pill promo">WhatsApp</span><span class="pill fmt">Broadcast (final)</span></div></div>
+      <div class="piece-title">Last call</div>
+      <div class="piece-body">
+        <div class="msg-bubble">Enrollment closes <b>tonight at midnight</b>. Classes begin tomorrow, Monday 21 September.<br><br>If you've been deciding, this is the moment — reply <b>"IN"</b> and we'll get you set up before the first class.<br><br>If you have one last question before deciding, ask it now, I'll answer tonight.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LAUNCH ============ -->
+  <div class="block" id="launch">
+    <div class="week-title"><span class="tag">Mon 21 Sept</span><h2>Launch Day</h2></div>
+    <div class="piece">
+      <div class="piece-head"><span class="piece-date">Mon 21 Sept</span><div class="piece-tags"><span class="pill founder">Launch</span><span class="pill fmt">Reel</span></div></div>
+      <div class="piece-title">Batch 1 has begun</div>
+      <div class="piece-body">
+        <div class="field"><div class="fl">Script</div><div class="caption-text">"Batch 1 just started. Two timings, one classroom energy. Welcome to everyone who's here."</div></div>
+        <div class="field"><div class="fl">Caption</div><div class="caption-text">This is the part all the planning was actually for. See you in class.</div></div>
+      </div>
+    </div>
+
+    <div class="launch-banner">
+      <div class="lt">One Week Later — Retention Nudge (Reel/Story)</div>
+      <div>"Know someone who's still deciding? Send them this — the next batch opens once this one's full."</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div>Svadhyaya Institute of Learning — Real Content Scripts, all Reels, prepared Aug 2026</div>
+  <div>Print to PDF from your browser for a shareable copy</div>
+</footer>
+
+</body>
+</html>
