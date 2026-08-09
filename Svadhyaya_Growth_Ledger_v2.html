@@ -8,80 +8,49 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0E1F3B;
-    --navy-2:#152A4D;
-    --paper:#F7F4EC;
-    --paper-2:#EFE9D8;
-    --line: rgba(14,31,59,0.14);
-    --line-dark: rgba(247,244,236,0.14);
-    --gold:#C79A2E;
-    --gold-light:#E7C766;
-    --ink:#1C2430;
-    --ink-soft:#33404F;
-    --muted:#6E7280;
-    --concept:#2A5FA8;
-    --concept-bg:#E9F0FA;
-    --hook:#A8412F;
-    --hook-bg:#F5E5E0;
-    --proof:#35664A;
-    --proof-bg:#E7F0E9;
-    --founder:#7A4B8C;
-    --founder-bg:#F1E7F5;
-    --promo:#96660E;
-    --promo-bg:#FBF0DC;
-    --yt:#1E5E5E;
-    --yt-bg:#E4F1F1;
-    --card:#FFFFFF;
-    --r:10px;
+    --navy:#0E1F3B; --navy-2:#152A4D;
+    --paper:#F7F4EC; --paper-2:#EFE9D8;
+    --line: rgba(14,31,59,0.14); --line-dark: rgba(247,244,236,0.14);
+    --gold:#C79A2E; --gold-light:#E7C766;
+    --ink:#1C2430; --ink-soft:#33404F; --muted:#6E7280;
+    --concept:#2A5FA8; --concept-bg:#E9F0FA;
+    --hook:#A8412F; --hook-bg:#F5E5E0;
+    --proof:#35664A; --proof-bg:#E7F0E9;
+    --founder:#7A4B8C; --founder-bg:#F1E7F5;
+    --promo:#96660E; --promo-bg:#FBF0DC;
+    --yt:#1E5E5E; --yt-bg:#E4F1F1;
+    --card:#FFFFFF; --r:10px;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{
-    margin:0; background:var(--navy); color:var(--ink-soft);
-    font-family:'IBM Plex Sans',sans-serif; -webkit-font-smoothing:antialiased;
-  }
+  body{margin:0; background:var(--navy); color:var(--ink-soft); font-family:'IBM Plex Sans',sans-serif; -webkit-font-smoothing:antialiased;}
   ::selection{background:var(--gold); color:var(--navy);}
   .num{font-family:'IBM Plex Mono',monospace;}
 
-  /* ---------- ledger rule divider (double underline, accounting-style) ---------- */
-  .ledger-rule{height:14px; background:var(--paper);}
-  .ledger-rule::before, .ledger-rule::after{content:none;}
-  .ledger-rule.on-dark{background:var(--navy);}
-  .rule-lines{position:relative;}
-  .rule-lines .l1, .rule-lines .l2{height:1px; background:var(--line-dark); margin:0 6vw;}
-  .rule-lines .l2{margin-top:3px;}
-
-  /* ---------- nav ---------- */
-  .navbar{
-    position:sticky; top:0; z-index:50; background:var(--navy);
-    border-bottom:1px solid var(--line-dark);
-    padding:14px 6vw; display:flex; align-items:center; justify-content:space-between;
-    gap:20px; flex-wrap:wrap;
-  }
+  .navbar{position:sticky; top:0; z-index:50; background:var(--navy); border-bottom:1px solid var(--line-dark); padding:14px 6vw; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;}
   .navbar .brandmark{display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; color:var(--paper); font-size:12px; letter-spacing:.14em; text-transform:uppercase;}
   .navbar .brandmark .dot{width:8px; height:8px; border-radius:50%; background:var(--gold);}
   .navlinks{display:flex; gap:20px; flex-wrap:wrap;}
   .navlinks a{color:rgba(247,244,236,0.7); text-decoration:none; font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; padding-bottom:3px; border-bottom:1px solid transparent; transition:.2s;}
   .navlinks a:hover{color:var(--gold-light); border-color:var(--gold-light);}
 
-  /* ---------- hero ---------- */
-  .hero{
-    background: radial-gradient(1100px 480px at 12% -10%, rgba(199,154,46,0.16), transparent 60%),
-                radial-gradient(900px 460px at 92% 0%, rgba(42,95,168,0.16), transparent 55%),
-                var(--navy);
-    color:var(--paper); padding:74px 6vw 52px; position:relative; overflow:hidden;
-  }
+  .hero{background: radial-gradient(1100px 480px at 12% -10%, rgba(199,154,46,0.16), transparent 60%), radial-gradient(900px 460px at 92% 0%, rgba(42,95,168,0.16), transparent 55%), var(--navy); color:var(--paper); padding:74px 6vw 52px; position:relative; overflow:hidden;}
   .hero .kicker{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-light); display:flex; align-items:center; gap:12px; margin-bottom:20px;}
   .hero .kicker::before{content:""; width:32px; height:1px; background:var(--gold-light); display:inline-block;}
   .hero h1{font-family:'Fraunces',serif; font-weight:600; font-size:clamp(36px,5.6vw,64px); line-height:1.04; margin:0 0 16px; max-width:16ch;}
   .hero h1 em{font-style:italic; font-weight:400; color:var(--gold-light);}
-  .hero p.lede{max-width:60ch; font-size:16.5px; line-height:1.65; color:rgba(247,244,236,0.78); margin:0 0 34px;}
+  .hero p.lede{max-width:60ch; font-size:16.5px; line-height:1.65; color:rgba(247,244,236,0.78); margin:0 0 30px;}
+
+  .batch-box{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:30px;}
+  .batch-card{background:rgba(247,244,236,0.06); border:1px solid var(--line-dark); border-radius:10px; padding:14px 18px; min-width:200px;}
+  .batch-card .bk{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--gold-light); margin-bottom:6px;}
+  .batch-card .bv{font-family:'Fraunces',serif; font-size:19px; color:var(--paper); font-weight:600;}
+
   .stat-strip{display:flex; flex-wrap:wrap; border-top:1px solid var(--line-dark); margin-top:6px;}
   .stat{padding:18px 30px 4px 0; margin-right:30px;}
   .stat .k{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:#8891A8; margin-bottom:5px;}
   .stat .v{font-family:'Fraunces',serif; font-size:22px; color:var(--gold-light); font-weight:600;}
 
-  /* ---------- body sections ---------- */
   .page{background:var(--paper); background-image:linear-gradient(var(--line) 1px, transparent 1px); background-size:100% 40px;}
   .block{max-width:1180px; margin:0 auto; padding:64px 6vw 10px;}
   .section-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:8px;}
@@ -89,7 +58,6 @@
   h2{font-family:'Fraunces',serif; font-weight:600; font-size:clamp(24px,3vw,32px); margin:0; color:var(--navy);}
   .section-sub{color:var(--muted); font-size:14.5px; max-width:720px; margin:10px 0 30px; line-height:1.65;}
 
-  /* ---------- objectives ---------- */
   .obj-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:44px;}
   @media(max-width:980px){.obj-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:560px){.obj-grid{grid-template-columns:1fr;}}
@@ -99,7 +67,6 @@
   .obj-target{font-size:12.5px; color:var(--muted); border-top:1px dashed var(--line); padding-top:10px; margin-top:12px;}
   .obj-target b{color:var(--ink);}
 
-  /* ---------- pillars ---------- */
   .pillar-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
   @media(max-width:980px){.pillar-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:560px){.pillar-grid{grid-template-columns:1fr;}}
@@ -117,7 +84,6 @@
   .pillar-count .n{font-family:'IBM Plex Mono',monospace; font-size:19px; font-weight:600; color:var(--navy);}
   .pillar-count .u{font-size:11.5px; color:var(--muted);}
 
-  /* ---------- workflow (ledger timeline) ---------- */
   .flow{position:relative; padding-left:56px; margin-top:20px;}
   .flow::before{content:""; position:absolute; left:23px; top:8px; bottom:8px; width:2px; background:linear-gradient(var(--navy),var(--gold));}
   .flow-step{position:relative; padding-bottom:26px;}
@@ -129,7 +95,6 @@
   .flow-who{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); background:var(--paper-2); padding:3px 9px; border-radius:20px;}
   .flow-desc{font-size:13.5px; color:var(--muted); line-height:1.55;}
 
-  /* ---------- week blocks ---------- */
   .week-block{margin-bottom:16px; border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:var(--card);}
   .week-head{display:flex; justify-content:space-between; align-items:center; padding:14px 20px; background:var(--navy); color:var(--paper); flex-wrap:wrap; gap:8px;}
   .week-head .wk{font-family:'Fraunces',serif; font-weight:600; font-size:16.5px;}
@@ -137,7 +102,11 @@
   .week-mix{padding:14px 20px; font-size:13px; color:var(--ink-soft); border-bottom:1px solid var(--line); background:#FCFBF6;}
   .week-mix b{color:var(--navy);}
 
-  /* ---------- tables ---------- */
+  .launch-banner{background:linear-gradient(90deg,var(--navy),var(--navy-2)); color:var(--paper); border-radius:var(--r); padding:20px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin:22px 0 8px; border:1px solid var(--gold);}
+  .launch-banner .lt{font-family:'Fraunces',serif; font-size:19px; font-weight:600;}
+  .launch-banner .ld{font-size:13px; color:rgba(247,244,236,0.75); margin-top:4px;}
+  .launch-banner .lb{font-family:'IBM Plex Mono',monospace; background:var(--gold); color:var(--navy); padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600;}
+
   .tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r); background:var(--card);}
   table{width:100%; border-collapse:collapse; min-width:760px;}
   table th{text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10.8px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); padding:12px 16px; border-bottom:1px solid var(--line); background:#FCFBF6; white-space:nowrap;}
@@ -154,7 +123,6 @@
   .pill.promo{background:var(--promo-bg); color:var(--promo);}
   .pill.yt{background:var(--yt-bg); color:var(--yt);}
 
-  /* ---------- ads campaign ---------- */
   .campaign-map{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:30px;}
   @media(max-width:860px){.campaign-map{grid-template-columns:1fr;}}
   .map-card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px;}
@@ -174,9 +142,7 @@
 
   footer{background:var(--navy); color:rgba(247,244,236,0.6); padding:28px 6vw; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:11.5px;}
 
-  @media (prefers-reduced-motion: no-preference){
-    .block{animation:fadeUp .5s ease both;}
-  }
+  @media (prefers-reduced-motion: no-preference){.block{animation:fadeUp .5s ease both;}}
   @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
 </style>
 </head>
@@ -195,13 +161,22 @@
 
 <div class="hero">
   <div class="kicker">Svadhyaya Institute of Learning</div>
-  <h1>Fill the workshop.<br><em>Fill the batch.</em></h1>
-  <p class="lede">A working plan for what to post, in what order, on what day — built to move a stranger on Instagram to a signed-up, paying Class 11 Accountancy student.</p>
+  <h1>No workshop.<br><em>Straight to the batch.</em></h1>
+  <p class="lede">Direct enrollment for the live online Class 11 Accountancy course — no free workshop in between. Every post, ad, and message from here points to one thing: a confirmed seat before classes begin.</p>
+
+  <div class="batch-box">
+    <div class="batch-card"><div class="bk">Course Fee</div><div class="bv">₹6,500 / month</div></div>
+    <div class="batch-card"><div class="bk">Classes</div><div class="bv">12 / month · Mon · Wed · Fri</div></div>
+    <div class="batch-card"><div class="bk">Morning Batch</div><div class="bv">7:30 – 9:00 AM</div></div>
+    <div class="batch-card"><div class="bk">Evening Batch</div><div class="bv">7:00 – 8:30 PM</div></div>
+    <div class="batch-card"><div class="bk">Course Starts</div><div class="bv">Mon, 21 Sept 2026</div></div>
+  </div>
+
   <div class="stat-strip">
     <div class="stat"><div class="k">Content Pillars</div><div class="v">7</div></div>
     <div class="stat"><div class="k">Weekly Cadence</div><div class="v">5–6 posts</div></div>
-    <div class="stat"><div class="k">Workshop Ad Budget</div><div class="v">₹8,000 / 10 days</div></div>
-    <div class="stat"><div class="k">End Goal</div><div class="v">Batch Admissions</div></div>
+    <div class="stat"><div class="k">Enrollment Ad Budget</div><div class="v">₹8,000 / 10 days</div></div>
+    <div class="stat"><div class="k">End Goal</div><div class="v">Seats Confirmed by Sept 20</div></div>
   </div>
 </div>
 
@@ -210,7 +185,7 @@
   <!-- ============ OBJECTIVES ============ -->
   <div class="block" id="objectives">
     <div class="section-head"><span class="tag">Ledger · 01</span><h2>Objectives &amp; Content Pillars</h2></div>
-    <p class="section-sub">Five objectives, in funnel order. Every pillar below exists to serve one of these — nothing gets posted without a job.</p>
+    <p class="section-sub">Five objectives, in funnel order, all pointed at one date: seats confirmed before the 21st. No workshop step — enquiry goes straight to enrollment.</p>
 
     <div class="obj-grid">
       <div class="obj-card">
@@ -225,18 +200,18 @@
       </div>
       <div class="obj-card">
         <div class="obj-num">03 · Leads</div>
-        <div class="obj-title">Turn attention into WhatsApp enquiries</div>
-        <div class="obj-target">Target: <b>300+ enquiries/month</b> at steady state</div>
+        <div class="obj-title">Turn attention into WhatsApp enquiries about the course</div>
+        <div class="obj-target">Target: <b>200+ enquiries</b> in the enrollment window</div>
       </div>
       <div class="obj-card">
         <div class="obj-num">04 · Conversion</div>
-        <div class="obj-title">Fill the workshop, then convert attendees to the batch</div>
-        <div class="obj-target">Target: <b>30%+ workshop-to-admission</b> rate</div>
+        <div class="obj-title">Confirm paid seats across both batches before launch</div>
+        <div class="obj-target">Target: <b>30+ paid admissions</b> by 20 Sept, across both timings</div>
       </div>
       <div class="obj-card">
         <div class="obj-num">05 · Retention</div>
-        <div class="obj-title">Turn admitted students into referral sources</div>
-        <div class="obj-target">Target: <b>1 referral per 3 students</b> by term end</div>
+        <div class="obj-title">Turn Batch 1 students into referrals for the next intake</div>
+        <div class="obj-target">Target: <b>1 referral per 3 students</b> within the first month</div>
       </div>
     </div>
 
@@ -258,7 +233,7 @@
       </div>
       <div class="pillar"><span class="pillar-fmt fmt-founder">Reel / Story</span>
         <div class="pillar-name">Founder Authority</div>
-        <div class="pillar-desc">Shweta's CA background, teaching philosophy, behind-the-scenes.</div>
+        <div class="pillar-desc">Shweta's CA background, teaching philosophy, why she teaches this way.</div>
         <div class="pillar-count"><span class="n">3</span><span class="u">/ month</span></div>
       </div>
       <div class="pillar"><span class="pillar-fmt fmt-concept">Reel / Carousel</span>
@@ -267,8 +242,8 @@
         <div class="pillar-count"><span class="n">3</span><span class="u">/ month</span></div>
       </div>
       <div class="pillar"><span class="pillar-fmt fmt-promo">Poster + Reel</span>
-        <div class="pillar-name">Workshop / Batch Promo</div>
-        <div class="pillar-desc">Announcement, teaser, countdown — the only content pillar with a hard CTA.</div>
+        <div class="pillar-name">Course Enrollment Promo</div>
+        <div class="pillar-desc">Fee, batch timings, seats-left urgency — the only pillar with a hard "Enroll now" CTA.</div>
         <div class="pillar-count"><span class="n">6</span><span class="u">/ month</span></div>
       </div>
       <div class="pillar"><span class="pillar-fmt fmt-yt">Long-form</span>
@@ -287,7 +262,7 @@
   <!-- ============ WORKFLOW ============ -->
   <div class="block" id="workflow">
     <div class="section-head"><span class="tag">Ledger · 02</span><h2>Content Workflow — Step by Step</h2></div>
-    <p class="section-sub">The same loop, every week. Nothing gets posted without moving through all eight steps.</p>
+    <p class="section-sub">The same loop, every week, right up to the 21st. Nothing gets posted without moving through all eight steps.</p>
 
     <div class="flow">
       <div class="flow-step"><div class="flow-numc">1</div><div class="flow-card">
@@ -316,7 +291,7 @@
       </div></div>
       <div class="flow-step"><div class="flow-numc">7</div><div class="flow-card">
         <div class="flow-top"><span class="flow-title">Engage for the first 2 hours</span><span class="flow-who">Community</span></div>
-        <div class="flow-desc">Reply to every comment and DM fast — this window decides how far the algorithm pushes it.</div>
+        <div class="flow-desc">Reply to every comment and DM fast — this window decides how far the algorithm pushes it, and every course question becomes a direct enquiry.</div>
       </div></div>
       <div class="flow-step"><div class="flow-numc">8</div><div class="flow-card">
         <div class="flow-top"><span class="flow-title">Report &amp; feed back into next week</span><span class="flow-who">Weekly review</span></div>
@@ -328,81 +303,91 @@
   <!-- ============ 4-WEEK PLAN ============ -->
   <div class="block" id="monthly">
     <div class="section-head"><span class="tag">Ledger · 03</span><h2>4-Week Content Calendar</h2></div>
-    <p class="section-sub">The macro shape of one full cycle — from cold reach to a closed batch. This is the frame the detailed daily calendar below fills in.</p>
+    <p class="section-sub">Four weeks, no workshop step — running straight from cold reach to a confirmed, paid seat before the 21st.</p>
 
     <div class="week-block">
-      <div class="week-head"><span class="wk">Week 1</span><span class="obj">Objective — Maximize Reach</span></div>
+      <div class="week-head"><span class="wk">Week 1 · 24–30 Aug</span><span class="obj">Objective — Maximize Reach</span></div>
       <div class="week-mix"><b>Mix:</b> 2 Struggle Hooks · 2 Concept Explainers · 1 YouTube Deep Dive · 1 Live Q&amp;A</div>
     </div>
     <div class="week-block">
-      <div class="week-head"><span class="wk">Week 2</span><span class="obj">Objective — Build Trust</span></div>
+      <div class="week-head"><span class="wk">Week 2 · 31 Aug–6 Sept</span><span class="obj">Objective — Build Trust</span></div>
       <div class="week-mix"><b>Mix:</b> 2 Proof/Testimonial · 1 Founder Authority · 1 Study Tactic · 1 YouTube Deep Dive · 1 Live Q&amp;A</div>
     </div>
     <div class="week-block">
-      <div class="week-head"><span class="wk">Week 3</span><span class="obj">Objective — Open Workshop Registration</span></div>
-      <div class="week-mix"><b>Mix:</b> Workshop announcement poster + teaser Reel · 2 Concept Explainers · 1 Founder Authority · Ads Phase 1–2 launch (₹5,000)</div>
+      <div class="week-head"><span class="wk">Week 3 · 7–13 Sept</span><span class="obj">Objective — Open Enrollment</span></div>
+      <div class="week-mix"><b>Mix:</b> Course announcement (fee, 12 classes/month, both batch timings) · Founder "why direct classes" reel · 2 Concept Explainers · Proof carousel · Ads Phase 1–2 launch (₹5,000, from 11 Sept)</div>
     </div>
     <div class="week-block">
-      <div class="week-head"><span class="wk">Week 4</span><span class="obj">Objective — Convert &amp; Admit</span></div>
-      <div class="week-mix"><b>Mix:</b> Countdown posters · Proof content · Workshop delivered → live batch offer → admissions · Ads Phase 3–4 close (₹3,000)</div>
+      <div class="week-head"><span class="wk">Week 4 · 14–20 Sept</span><span class="obj">Objective — Close Enrollment</span></div>
+      <div class="week-mix"><b>Mix:</b> Seats-left countdown posters · Proof content · "Enrollment closes 20 Sept" final push · Ads Phase 3–4 close (₹3,000)</div>
+    </div>
+
+    <div class="launch-banner">
+      <div><div class="lt">Monday, 21 September 2026</div><div class="ld">Batch 1 begins — both timings, live. No new enrollment content needed once this date lands.</div></div>
+      <div class="lb">Course Starts</div>
     </div>
   </div>
 
   <!-- ============ SOCIAL CALENDAR ============ -->
   <div class="block" id="social">
     <div class="section-head"><span class="tag">Ledger · 04</span><h2>Social Media Content Calendar</h2></div>
-    <p class="section-sub">Day-by-day for one full cycle. Dates are illustrative — shift the whole block to match your actual workshop date.</p>
+    <p class="section-sub">Day-by-day, 24 August through 20 September — the last day before classes begin.</p>
 
     <div class="tablewrap">
       <table>
         <thead><tr><th>Date</th><th>Day</th><th>Pillar</th><th>Format</th><th>Content</th><th>Hook / Caption</th><th>CTA</th></tr></thead>
         <tbody>
-          <tr class="weekrow"><td colspan="7">Week 1 — 03 Aug – 09 Aug 2026 · Reach</td></tr>
-          <tr><td class="mono">03-Aug</td><td>Mon</td><td><span class="pill hook">Hook</span></td><td>Reel</td><td>"Why 70% of students lose marks on this one topic"</td><td>"It's not that you don't understand it. It's that no one explained it right."</td><td>Follow for the fix</td></tr>
-          <tr><td class="mono">04-Aug</td><td>Tue</td><td><span class="pill concept">Concept</span></td><td>Carousel</td><td>Receivables vs Payables, explained with real invoices</td><td>"Confusing these two costs marks every single year."</td><td>Save this post</td></tr>
-          <tr><td class="mono">06-Aug</td><td>Thu</td><td><span class="pill concept">Concept</span></td><td>Reel</td><td>What are Fictitious Assets — 45-second breakdown</td><td>"This term sounds scary. It isn't."</td><td>Comment your doubt</td></tr>
-          <tr><td class="mono">07-Aug</td><td>Fri</td><td><span class="pill yt">YouTube</span></td><td>Long-form</td><td>Full chapter: Introduction to Accountancy, cut into a Short too</td><td>"Everything Class 11 needs on this chapter, in one video."</td><td>Watch full video — link in bio</td></tr>
-          <tr class="sunday"><td class="mono">09-Aug</td><td>Sun</td><td><span class="pill founder">Live</span></td><td>Instagram Live</td><td>"Ask Shweta" — open doubt-clearing session</td><td>"Bring your toughest question."</td><td>Set reminder</td></tr>
+          <tr class="weekrow"><td colspan="7">Week 1 — 24 Aug – 30 Aug 2026 · Reach</td></tr>
+          <tr><td class="mono">24-Aug</td><td>Mon</td><td><span class="pill hook">Hook</span></td><td>Reel</td><td>"Why 70% of students lose marks on this one topic"</td><td>"It's not that you don't understand it. It's that no one explained it right."</td><td>Follow for the fix</td></tr>
+          <tr><td class="mono">25-Aug</td><td>Tue</td><td><span class="pill concept">Concept</span></td><td>Carousel</td><td>Receivables vs Payables, explained with real invoices</td><td>"Confusing these two costs marks every single year."</td><td>Save this post</td></tr>
+          <tr><td class="mono">27-Aug</td><td>Thu</td><td><span class="pill concept">Concept</span></td><td>Reel</td><td>What are Fictitious Assets — 45-second breakdown</td><td>"This term sounds scary. It isn't."</td><td>Comment your doubt</td></tr>
+          <tr><td class="mono">28-Aug</td><td>Fri</td><td><span class="pill yt">YouTube</span></td><td>Long-form</td><td>Full chapter: Introduction to Accountancy, cut into a Short too</td><td>"Everything Class 11 needs on this chapter, in one video."</td><td>Watch full video — link in bio</td></tr>
+          <tr class="sunday"><td class="mono">30-Aug</td><td>Sun</td><td><span class="pill founder">Live</span></td><td>Instagram Live</td><td>"Ask Shweta" — open doubt-clearing session</td><td>"Bring your toughest question."</td><td>Set reminder</td></tr>
 
-          <tr class="weekrow"><td colspan="7">Week 2 — 10 Aug – 16 Aug 2026 · Trust</td></tr>
-          <tr><td class="mono">10-Aug</td><td>Mon</td><td><span class="pill proof">Proof</span></td><td>Reel</td><td>Student testimonial — "Failed the first test, topped the next"</td><td>"This is what changed for her in 3 weeks."</td><td>DM "WORKSHOP" to know more</td></tr>
-          <tr><td class="mono">11-Aug</td><td>Tue</td><td><span class="pill concept">Study Tactic</span></td><td>Carousel</td><td>"5 ways to prepare smartly for exams"</td><td>"Studying longer isn't the fix. Studying right is."</td><td>Save for revision week</td></tr>
-          <tr><td class="mono">13-Aug</td><td>Thu</td><td><span class="pill founder">Founder</span></td><td>Reel</td><td>Shweta's CA journey — why she started teaching Class 11</td><td>"I became a CA. Then I realised what students actually needed."</td><td>Follow for more</td></tr>
-          <tr><td class="mono">14-Aug</td><td>Fri</td><td><span class="pill yt">YouTube</span></td><td>Long-form</td><td>Full chapter: Financial Statements Introduction</td><td>"The chapter that decides how well you understand everything after it."</td><td>Watch full video — link in bio</td></tr>
-          <tr class="sunday"><td class="mono">16-Aug</td><td>Sun</td><td><span class="pill founder">Live</span></td><td>Instagram Live</td><td>"Ask Shweta" — Week 2 doubt session</td><td>"Last week's questions, answered live."</td><td>Set reminder</td></tr>
+          <tr class="weekrow"><td colspan="7">Week 2 — 31 Aug – 6 Sept 2026 · Trust</td></tr>
+          <tr><td class="mono">31-Aug</td><td>Mon</td><td><span class="pill proof">Proof</span></td><td>Reel</td><td>Student testimonial — "Failed the first test, topped the next"</td><td>"This is what changed for her in 3 weeks."</td><td>Follow for the course details</td></tr>
+          <tr><td class="mono">01-Sep</td><td>Tue</td><td><span class="pill concept">Study Tactic</span></td><td>Carousel</td><td>"5 ways to prepare smartly for exams"</td><td>"Studying longer isn't the fix. Studying right is."</td><td>Save for revision week</td></tr>
+          <tr><td class="mono">03-Sep</td><td>Thu</td><td><span class="pill founder">Founder</span></td><td>Reel</td><td>Shweta's CA journey — why she started teaching Class 11</td><td>"I became a CA. Then I realised what students actually needed."</td><td>Follow for more</td></tr>
+          <tr><td class="mono">04-Sep</td><td>Fri</td><td><span class="pill yt">YouTube</span></td><td>Long-form</td><td>Full chapter: Financial Statements Introduction</td><td>"The chapter that decides how well you understand everything after it."</td><td>Watch full video — link in bio</td></tr>
+          <tr class="sunday"><td class="mono">06-Sep</td><td>Sun</td><td><span class="pill founder">Live</span></td><td>Instagram Live</td><td>"Ask Shweta" — Week 2 doubt session</td><td>"Last week's questions, answered live."</td><td>Set reminder</td></tr>
 
-          <tr class="weekrow"><td colspan="7">Week 3 — 17 Aug – 23 Aug 2026 · Registration Opens</td></tr>
-          <tr><td class="mono">17-Aug</td><td>Mon</td><td><span class="pill promo">Promo</span></td><td>Poster</td><td>Workshop announcement — date, format, seat count, link</td><td>"One workshop. Every doubt, cleared."</td><td>Register now — link in bio</td></tr>
-          <tr><td class="mono">17-Aug</td><td>Mon</td><td><span class="pill promo">Ad</span></td><td>Meta Ads</td><td class="mono">Phase 1–2 launches — ₹5,000</td><td>—</td><td>See Ads Campaign section</td></tr>
-          <tr><td class="mono">18-Aug</td><td>Tue</td><td><span class="pill promo">Promo</span></td><td>Reel</td><td>"What you'll walk away knowing" — workshop teaser</td><td>"3 topics. 90 minutes. Zero confusion left."</td><td>Register now — link in bio</td></tr>
-          <tr><td class="mono">19-Aug</td><td>Wed</td><td><span class="pill concept">Concept</span></td><td>Reel</td><td>What are Current vs Non-Current Liabilities</td><td>"This shows up in almost every exam question."</td><td>Comment your doubt</td></tr>
-          <tr><td class="mono">20-Aug</td><td>Thu</td><td><span class="pill founder">Founder</span></td><td>Reel</td><td>"Why I'm running this workshop" — Shweta to camera</td><td>"I built this for the exact confusion I keep hearing about."</td><td>Register now — link in bio</td></tr>
-          <tr><td class="mono">21-Aug</td><td>Fri</td><td><span class="pill proof">Proof</span></td><td>Carousel</td><td>3 parent testimonials, screenshots</td><td>"Parents are already seeing the difference."</td><td>Register now — link in bio</td></tr>
-          <tr class="sunday"><td class="mono">23-Aug</td><td>Sun</td><td><span class="pill promo">WhatsApp</span></td><td>Broadcast</td><td>Full-list broadcast with registration link + seat count</td><td>"Seats are going. Here's your link."</td><td>Reply "IN" to confirm</td></tr>
+          <tr class="weekrow"><td colspan="7">Week 3 — 7 Sept – 13 Sept 2026 · Enrollment Opens</td></tr>
+          <tr><td class="mono">07-Sep</td><td>Mon</td><td><span class="pill promo">Promo</span></td><td>Poster</td><td>Course announcement — ₹6,500/month, 12 classes, Mon/Wed/Fri, starts 21 Sept</td><td>"Live online. Direct into the batch. No workshop, no waiting."</td><td>Enroll now — link in bio</td></tr>
+          <tr><td class="mono">08-Sep</td><td>Tue</td><td><span class="pill promo">Promo</span></td><td>Reel</td><td>"Choose your batch" — morning 7:30–9:00 AM or evening 7:00–8:30 PM</td><td>"Whichever time works for you, it's the same course."</td><td>Pick your slot — link in bio</td></tr>
+          <tr><td class="mono">09-Sep</td><td>Wed</td><td><span class="pill concept">Concept</span></td><td>Reel</td><td>What are Current vs Non-Current Liabilities</td><td>"This shows up in almost every exam question."</td><td>Comment your doubt</td></tr>
+          <tr><td class="mono">10-Sep</td><td>Thu</td><td><span class="pill founder">Founder</span></td><td>Reel</td><td>"Why we're skipping the workshop and going straight to class" — Shweta to camera</td><td>"You already know if this is right for you. Let's just start."</td><td>Enroll now — link in bio</td></tr>
+          <tr><td class="mono">11-Sep</td><td>Fri</td><td><span class="pill proof">Proof</span></td><td>Carousel</td><td>3 parent testimonials, screenshots</td><td>"Parents are already seeing the difference."</td><td>Enroll now — link in bio</td></tr>
+          <tr><td class="mono">11-Sep</td><td>Fri</td><td><span class="pill promo">Ad</span></td><td>Meta Ads</td><td class="mono">Phase 1–2 launches — ₹5,000</td><td>—</td><td>See Ads Campaign section</td></tr>
+          <tr class="sunday"><td class="mono">13-Sep</td><td>Sun</td><td><span class="pill promo">WhatsApp</span></td><td>Broadcast</td><td>Full-list broadcast — fee, timings, enrollment link, seats-left count</td><td>"Two batches. One deadline. Here's your link."</td><td>Reply "IN" to confirm</td></tr>
 
-          <tr class="weekrow"><td colspan="7">Week 4 — 24 Aug – 30 Aug 2026 · Convert &amp; Admit</td></tr>
-          <tr><td class="mono">24-Aug</td><td>Mon</td><td><span class="pill promo">Promo</span></td><td>Poster</td><td>"Seats filling" countdown — visible seat number</td><td>"12 seats left. That's it."</td><td>Register now — link in bio</td></tr>
-          <tr><td class="mono">24-Aug</td><td>Mon</td><td><span class="pill promo">Ad</span></td><td>Meta Ads</td><td class="mono">Phase 3 begins — retarget engagers, ₹800/day</td><td>—</td><td>See Ads Campaign section</td></tr>
-          <tr><td class="mono">26-Aug</td><td>Wed</td><td><span class="pill promo">Promo</span></td><td>Poster</td><td>"Closes tonight" — final registration push</td><td>"This is the last call."</td><td>Register now — link in bio</td></tr>
-          <tr><td class="mono">27-Aug</td><td>Thu</td><td><span class="pill promo">Event</span></td><td>Live Workshop</td><td>Workshop delivered → time-boxed batch offer at close</td><td>"For the next 24 hours, this is your admission price."</td><td>Confirm your seat tonight</td></tr>
-          <tr><td class="mono">28-Aug</td><td>Fri</td><td><span class="pill promo">Ad</span></td><td>Meta Ads</td><td class="mono">Phase 4 — final retarget close, ₹600</td><td>—</td><td>See Ads Campaign section</td></tr>
-          <tr><td class="mono">29-Aug</td><td>Sat</td><td><span class="pill proof">Proof</span></td><td>Reel + Story</td><td>Workshop recap, attendee reactions</td><td>"Here's what happened in the room."</td><td>Thank attendees, tag admitted students</td></tr>
-          <tr class="sunday"><td class="mono">30-Aug</td><td>Sun</td><td><span class="pill founder">Retention</span></td><td>Story</td><td>Ask every admitted student for one referral</td><td>"Know someone who needs this too?"</td><td>Share your referral link</td></tr>
+          <tr class="weekrow"><td colspan="7">Week 4 — 14 Sept – 20 Sept 2026 · Close Enrollment</td></tr>
+          <tr><td class="mono">14-Sep</td><td>Mon</td><td><span class="pill promo">Promo</span></td><td>Poster</td><td>"Seats filling" countdown — visible seat number, both batches</td><td>"Morning batch: 6 left. Evening batch: 9 left."</td><td>Enroll now — link in bio</td></tr>
+          <tr><td class="mono">14-Sep</td><td>Mon</td><td><span class="pill promo">Ad</span></td><td>Meta Ads</td><td class="mono">Phase 3 begins — retarget engagers, ₹800/day</td><td>—</td><td>See Ads Campaign section</td></tr>
+          <tr><td class="mono">16-Sep</td><td>Wed</td><td><span class="pill proof">Proof</span></td><td>Reel</td><td>Success story — "Here's a student who enrolled last week"</td><td>"She didn't wait for a workshop. She just started."</td><td>Enroll now — link in bio</td></tr>
+          <tr><td class="mono">18-Sep</td><td>Fri</td><td><span class="pill promo">Promo</span></td><td>Poster</td><td>"Enrollment closes 20 Sept, midnight"</td><td>"Classes begin Monday. This is the last call."</td><td>Enroll now — link in bio</td></tr>
+          <tr><td class="mono">19-Sep</td><td>Sat</td><td><span class="pill promo">Promo</span></td><td>Reel</td><td>"Tomorrow is the last day to enroll"</td><td>"After tonight, this batch is closed."</td><td>Enroll now — link in bio</td></tr>
+          <tr><td class="mono">20-Sep</td><td>Sun</td><td><span class="pill promo">Ad</span></td><td>Meta Ads</td><td class="mono">Phase 4 — final retarget close, ₹600</td><td>—</td><td>See Ads Campaign section</td></tr>
+          <tr class="sunday"><td class="mono">20-Sep</td><td>Sun</td><td><span class="pill promo">WhatsApp</span></td><td>Broadcast</td><td>Final call — "Enrollment closes tonight"</td><td>"Midnight tonight. Then we start Monday."</td><td>Reply "IN" to confirm your seat</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="launch-banner">
+      <div><div class="lt">Mon, 21 Sept — First Class, Both Batches</div><div class="ld">Post-launch: a "Batch 1 has begun" Reel/Story same day, then ask every enrolled student for one referral within the first week.</div></div>
+      <div class="lb">Go Live</div>
     </div>
   </div>
 
   <!-- ============ ADS CAMPAIGN ============ -->
   <div class="block" id="ads">
-    <div class="section-head"><span class="tag">Ledger · 05</span><h2>Ads Campaign — Workshop Registration</h2></div>
-    <p class="section-sub">Meta (Instagram + Facebook) lead-generation campaign, ₹8,000 total over 10 days, structured to spend conservatively until a creative proves itself, then scale.</p>
+    <div class="section-head"><span class="tag">Ledger · 05</span><h2>Ads Campaign — Course Enrollment</h2></div>
+    <p class="section-sub">Meta (Instagram + Facebook) campaign, ₹8,000 total over 10 days (11–20 Sept), closing the night before classes start. No workshop objective — every ad drives straight to enrollment.</p>
 
     <div class="campaign-map">
       <div class="map-card">
         <div class="lvl">Campaign</div>
-        <h4>Workshop Registration — Lead Gen</h4>
-        <p>Objective: <b>Leads</b> (Instant Form or WhatsApp click). Bidding: lowest cost. Placements: IG Feed, Reels, Stories + FB Feed.</p>
+        <h4>Class 11 Accountancy — Direct Enrollment</h4>
+        <p>Objective: <b>Leads / Conversions</b> (Instant Form or WhatsApp click to enroll). Bidding: lowest cost. Placements: IG Feed, Reels, Stories + FB Feed.</p>
       </div>
       <div class="map-card">
         <div class="lvl">Ad Set 1 — Cold</div>
@@ -419,7 +404,7 @@
         <ul>
           <li>Instagram/Facebook engagers, last 30 days</li>
           <li>Video viewers — 50%+ watch time</li>
-          <li>Website/link clicks who didn't complete the form</li>
+          <li>Link clicks who didn't complete enrollment</li>
         </ul>
       </div>
     </div>
@@ -433,18 +418,18 @@
 
     <div class="tablewrap" style="margin-top:20px;">
       <table>
-        <thead><tr><th>Day</th><th>Phase</th><th>Daily Budget</th><th>Objective</th><th>Ad Set Live</th><th>Creative</th></tr></thead>
+        <thead><tr><th>Date</th><th>Phase</th><th>Daily Budget</th><th>Objective</th><th>Ad Set Live</th><th>Creative</th></tr></thead>
         <tbody>
-          <tr><td class="mono">Day 1</td><td>Testing</td><td class="mono">₹500</td><td>Identify the strongest hook</td><td>Cold (Ad Set 1)</td><td>3 creatives rotating — Reel A/B + 1 Poster</td></tr>
-          <tr><td class="mono">Day 2</td><td>Testing</td><td class="mono">₹500</td><td>Confirm the winner with more data</td><td>Cold (Ad Set 1)</td><td>Same 3, still rotating</td></tr>
-          <tr><td class="mono">Day 3</td><td>Scale</td><td class="mono">₹1,000</td><td>Push the winning creative for reach + leads</td><td>Cold (Ad Set 1)</td><td>Top performer only</td></tr>
-          <tr><td class="mono">Day 4</td><td>Scale</td><td class="mono">₹1,000</td><td>Sustain lead flow</td><td>Cold (Ad Set 1)</td><td>Top performer</td></tr>
-          <tr><td class="mono">Day 5</td><td>Scale</td><td class="mono">₹1,000</td><td>Sustain lead flow</td><td>Cold + start Warm (Ad Set 2)</td><td>Top performer + retarget variant</td></tr>
-          <tr><td class="mono">Day 6</td><td>Scale</td><td class="mono">₹1,000</td><td>Peak reach before urgency phase</td><td>Cold + Warm</td><td>Top performer + retarget variant</td></tr>
-          <tr><td class="mono">Day 7</td><td>Urgency</td><td class="mono">₹800</td><td>Convert fence-sitters — "seats filling"</td><td>Warm (Ad Set 2)</td><td>Countdown poster creative</td></tr>
-          <tr><td class="mono">Day 8</td><td>Urgency</td><td class="mono">₹800</td><td>Convert fence-sitters</td><td>Warm (Ad Set 2)</td><td>Countdown poster creative</td></tr>
-          <tr><td class="mono">Day 9</td><td>Urgency</td><td class="mono">₹800</td><td>Last full push before close</td><td>Warm (Ad Set 2)</td><td>"Closes tonight" creative</td></tr>
-          <tr><td class="mono">Day 10</td><td>Close</td><td class="mono">₹600</td><td>Final nudge to non-converters, workshop day</td><td>Warm (Ad Set 2) only</td><td>"Starts today" urgency creative</td></tr>
+          <tr><td class="mono">11-Sep</td><td>Testing</td><td class="mono">₹500</td><td>Identify the strongest hook</td><td>Cold (Ad Set 1)</td><td>3 creatives rotating — course-announcement Reel, batch-timing Reel, Poster</td></tr>
+          <tr><td class="mono">12-Sep</td><td>Testing</td><td class="mono">₹500</td><td>Confirm the winner with more data</td><td>Cold (Ad Set 1)</td><td>Same 3, still rotating</td></tr>
+          <tr><td class="mono">13-Sep</td><td>Scale</td><td class="mono">₹1,000</td><td>Push the winning creative for reach + leads</td><td>Cold (Ad Set 1)</td><td>Top performer only</td></tr>
+          <tr><td class="mono">14-Sep</td><td>Scale</td><td class="mono">₹1,000</td><td>Sustain enquiry flow</td><td>Cold (Ad Set 1)</td><td>Top performer</td></tr>
+          <tr><td class="mono">15-Sep</td><td>Scale</td><td class="mono">₹1,000</td><td>Sustain enquiry flow</td><td>Cold + start Warm (Ad Set 2)</td><td>Top performer + retarget variant</td></tr>
+          <tr><td class="mono">16-Sep</td><td>Scale</td><td class="mono">₹1,000</td><td>Peak reach before urgency phase</td><td>Cold + Warm</td><td>Top performer + retarget variant</td></tr>
+          <tr><td class="mono">17-Sep</td><td>Urgency</td><td class="mono">₹800</td><td>Convert fence-sitters — "seats filling"</td><td>Warm (Ad Set 2)</td><td>Countdown poster creative</td></tr>
+          <tr><td class="mono">18-Sep</td><td>Urgency</td><td class="mono">₹800</td><td>Convert fence-sitters</td><td>Warm (Ad Set 2)</td><td>Countdown poster creative</td></tr>
+          <tr><td class="mono">19-Sep</td><td>Urgency</td><td class="mono">₹800</td><td>Last full push before close</td><td>Warm (Ad Set 2)</td><td>"Closes tonight" creative</td></tr>
+          <tr><td class="mono">20-Sep</td><td>Close</td><td class="mono">₹600</td><td>Final nudge to non-converters, day before class begins</td><td>Warm (Ad Set 2) only</td><td>"Classes start tomorrow" urgency creative</td></tr>
           <tr class="budget-total-row"><td colspan="2">Total</td><td class="mono">₹8,000</td><td colspan="3">₹5,000 committed upfront (Phase 1–2) · ₹3,000 released only if response is strong (Phase 3–4)</td></tr>
         </tbody>
       </table>
@@ -454,7 +439,7 @@
 </div>
 
 <footer>
-  <div>Svadhyaya Institute of Learning — Growth Ledger, prepared Jul 2026</div>
+  <div>Svadhyaya Institute of Learning — Growth Ledger, prepared Aug 2026</div>
   <div>Print to PDF from your browser for a shareable copy</div>
 </footer>
 
