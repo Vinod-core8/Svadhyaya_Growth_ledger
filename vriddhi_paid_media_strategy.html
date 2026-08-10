@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vriddhi Games — Paid Media Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1b2e;
+    --indigo:#232a4d;
+    --indigo-deep:#161b34;
+    --ivory:#f6efdd;
+    --ivory-soft:#efe6ce;
+    --marigold:#e0a638;
+    --marigold-soft:#f0c979;
+    --vermillion:#a13d2b;
+    --card-radius:14px;
+    --shadow-card: 0 10px 26px -16px rgba(22,27,52,0.28);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    font-size:0.72rem;
+    color:var(--vermillion);
+    font-weight:700;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    margin:0;
+    color:var(--indigo-deep);
+    letter-spacing:-0.01em;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    background:linear-gradient(180deg, var(--indigo-deep) 0%, var(--indigo) 100%);
+    color:var(--ivory);
+    padding:4.5rem 6vw 3.5rem;
+    border-bottom:5px solid var(--marigold);
+  }
+  .hero-inner{max-width:1100px; margin:0 auto;}
+  .hero .eyebrow{color:var(--marigold-soft);}
+  .hero h1{
+    font-size:clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight:600;
+    margin-top:0.6rem;
+    color:#fbf6e8;
+  }
+  .hero .sub{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:1.15rem;
+    color:var(--marigold-soft);
+    margin-top:0.55rem;
+  }
+  .hero .meta-line{
+    margin-top:1.8rem;
+    display:flex; flex-wrap:wrap; gap:0.8rem;
+  }
+  .pill{
+    border:1px solid rgba(246,239,221,0.3);
+    padding:0.45rem 1rem;
+    border-radius:999px;
+    font-size:0.84rem;
+    background:rgba(246,239,221,0.06);
+  }
+  .pill strong{color:var(--marigold-soft); font-weight:700;}
+
+  /* ===== LAYOUT ===== */
+  .wrap{max-width:1100px; margin:0 auto; padding:0 6vw;}
+  section{padding:3.6rem 0;}
+  section + section{border-top:1px solid rgba(28,27,46,0.08);}
+  .section-head{
+    display:flex; align-items:baseline; gap:0.9rem;
+    margin-bottom:1.8rem;
+    flex-wrap:wrap;
+  }
+  .section-head h2{font-size:clamp(1.4rem,2.6vw,1.9rem); font-weight:600;}
+  .section-head .num{
+    font-family:'Space Mono', monospace;
+    color:var(--marigold);
+    font-size:0.8rem;
+    border:1px solid rgba(224,166,56,0.5);
+    border-radius:999px;
+    padding:0.18rem 0.65rem;
+  }
+  .section-intro{max-width:70ch; color:#4a4860; font-size:1rem; margin-bottom:1.6rem;}
+
+  /* ===== SIMPLE CARD ===== */
+  .card{
+    background:#fffdf6;
+    border:1px solid rgba(28,27,46,0.09);
+    border-radius:var(--card-radius);
+    box-shadow:var(--shadow-card);
+    padding:1.6rem 1.75rem;
+  }
+  .card h3{font-size:1.1rem; margin-bottom:0.7rem;}
+  .card p{margin:0; color:#4a4860; font-size:0.95rem;}
+  .card p + p{margin-top:0.8rem;}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:1.3rem;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem;}
+  .grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:1.1rem;}
+
+  /* accent top-borders */
+  .accent-vermillion{border-top:4px solid var(--vermillion);}
+  .accent-marigold{border-top:4px solid var(--marigold);}
+  .accent-indigo{border-top:4px solid var(--indigo);}
+
+  .tag{
+    display:inline-block; font-family:'Space Mono',monospace; font-size:0.72rem;
+    letter-spacing:0.05em; text-transform:uppercase; padding:0.22rem 0.6rem;
+    border-radius:6px; margin-bottom:0.65rem; background:var(--ivory-soft); color:#8a6410;
+  }
+  .amount{font-family:'Fraunces', serif; font-size:1.9rem; font-weight:600; margin:0.2rem 0 0.6rem; color:var(--indigo-deep);}
+  .amount small{font-size:1rem; font-weight:400; color:#6b6880;}
+
+  /* budget split bar */
+  .split-bar{
+    display:flex; width:100%; height:2.4rem; border-radius:999px; overflow:hidden;
+    border:1px solid rgba(28,27,46,0.12); margin-bottom:2rem;
+    font-family:'Space Mono', monospace; font-size:0.82rem; font-weight:700;
+  }
+  .split-bar span{display:flex; align-items:center; justify-content:center;}
+  .split-meta{width:70%; background:var(--vermillion); color:var(--ivory);}
+  .split-google{width:30%; background:var(--marigold); color:var(--indigo-deep);}
+
+  .pacing-note{
+    margin-top:1.4rem; font-style:italic; font-family:'Fraunces', serif; color:#4a4860;
+    font-size:0.95rem; border-left:3px solid var(--marigold); padding-left:1rem;
+  }
+
+  /* price highlight card */
+  .price-card{
+    background:linear-gradient(160deg, var(--indigo-deep), var(--indigo));
+    color:var(--ivory);
+    border-radius:var(--card-radius);
+    padding:1.8rem;
+    display:flex; flex-direction:column; justify-content:center;
+    box-shadow:var(--shadow-card);
+  }
+  .price-card .eyebrow{color:var(--marigold-soft);}
+  .price-card .big{font-family:'Fraunces', serif; font-size:2.6rem; font-weight:600; margin-top:0.4rem; color:#fbf6e8;}
+  .price-card .cap{font-size:0.9rem; color:var(--ivory-soft); margin-top:0.4rem;}
+
+  /* spec list inside cards */
+  .spec-list{list-style:none; margin:0.4rem 0 0; padding:0;}
+  .spec-list li{
+    display:flex; justify-content:space-between; gap:1rem;
+    padding:0.6rem 0; border-bottom:1px dashed rgba(28,27,46,0.14); font-size:0.9rem;
+  }
+  .spec-list li:last-child{border-bottom:none;}
+  .spec-list .k{color:#6b6880; font-family:'Space Mono',monospace; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.03em;}
+  .spec-list .v{font-weight:600; color:var(--indigo-deep); text-align:right;}
+
+  .budget-tag{
+    display:inline-block; font-family:'Space Mono',monospace; font-size:0.76rem;
+    color:#8a6410; background:rgba(224,166,56,0.16); padding:0.18rem 0.5rem; border-radius:6px; margin-bottom:0.7rem;
+  }
+
+  /* format mix strip */
+  .format-mix{display:flex; gap:1rem; margin-bottom:1.8rem; flex-wrap:wrap;}
+  .format-chip{
+    background:var(--indigo-deep); color:var(--ivory); border-radius:10px;
+    padding:0.85rem 1.1rem; font-family:'Space Mono',monospace; font-size:0.8rem; flex:1; min-width:170px;
+  }
+  .format-chip b{display:block; font-family:'Fraunces',serif; font-size:1.35rem; color:var(--marigold-soft); font-weight:600; margin-bottom:0.15rem;}
+
+  .copy-note{
+    margin-top:1.5rem; background:var(--ivory-soft); border-radius:10px; padding:1rem 1.3rem;
+    border-left:4px solid var(--vermillion); font-style:italic; font-family:'Fraunces',serif; color:var(--indigo-deep); font-size:0.95rem;
+  }
+
+  /* negative keywords */
+  .neg-strip{
+    margin-top:1.6rem; background:var(--indigo-deep); border-radius:12px; padding:1.2rem 1.5rem;
+    display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap;
+  }
+  .neg-strip .eyebrow{color:var(--marigold-soft);}
+  .neg-words{display:flex; gap:0.5rem; flex-wrap:wrap;}
+  .neg-words span{
+    font-family:'Space Mono',monospace; font-size:0.76rem; color:var(--ivory);
+    border:1px solid rgba(246,239,221,0.3); padding:0.28rem 0.6rem; border-radius:6px;
+    text-decoration:line-through; text-decoration-color:var(--vermillion); text-decoration-thickness:2px;
+  }
+
+  .chip-row{display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem;}
+  .chip-row span{
+    background:var(--ivory-soft); border-radius:999px; padding:0.32rem 0.8rem; font-size:0.8rem; color:var(--indigo-deep);
+  }
+
+  /* timeline */
+  .timeline{display:grid; grid-template-columns:repeat(4,1fr); gap:1.1rem;}
+  .week-dot{
+    width:2.3rem; height:2.3rem; border-radius:50%; background:var(--vermillion); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700;
+    margin-bottom:0.8rem;
+  }
+  .week-card h4{margin:0 0 0.35rem; font-family:'Fraunces',serif; font-size:1rem; color:var(--indigo-deep);}
+  .week-card p{margin:0; font-size:0.86rem; color:#4a4860;}
+
+  /* recommendations */
+  .reco-list{display:flex; flex-direction:column; gap:0.75rem;}
+  .reco-item{
+    display:flex; gap:1rem; align-items:flex-start;
+    background:#fffdf6; border:1px solid rgba(28,27,46,0.09); border-radius:12px;
+    padding:1rem 1.3rem; box-shadow:var(--shadow-card);
+  }
+  .reco-item .n{
+    flex:none; font-family:'Fraunces',serif; font-weight:700; font-size:1.05rem; color:var(--marigold);
+    background:var(--indigo-deep); width:1.9rem; height:1.9rem; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .reco-item p{margin:0; font-size:0.92rem; color:#33314a;}
+
+  footer{
+    background:var(--indigo-deep); color:var(--ivory-soft); text-align:center;
+    padding:2.2rem 1rem; font-family:'Space Mono',monospace; font-size:0.78rem;
+  }
+  footer .brand{color:var(--marigold-soft); font-family:'Fraunces',serif; font-size:1rem; margin-bottom:0.3rem;}
+
+  @media (max-width:820px){
+    .grid-2, .grid-3, .grid-4{grid-template-columns:1fr;}
+    .timeline{grid-template-columns:1fr;}
+    .hero{padding:3.2rem 6vw 2.6rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Vriddhi Games · Internal &amp; Client Review</div>
+    <h1>Paid Media Strategy</h1>
+    <div class="sub">Meta &amp; Google Ads — a lean, trackable setup for a heritage card game</div>
+    <div class="meta-line">
+      <div class="pill">Monthly budget <strong>₹8,000 – ₹10,000</strong></div>
+      <div class="pill">Channel split <strong>70% Meta / 30% Google</strong></div>
+      <div class="pill">Prepared <strong>August 2026</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="summary">
+    <div class="section-head"><span class="num">00</span><h2>Executive Summary</h2></div>
+    <div class="grid-2">
+      <div class="card">
+        <p>Vriddhi Games sells a single flagship product — <strong>"Guess Who Am I,"</strong> a 54-card heritage game built around the heroes and sages of the Itihasas and Puranas. It's a low price-point, high-margin, gifting- and education-led product, well suited to paid social discovery and targeted search intent.</p>
+        <p>This document outlines a lean, trackable paid media setup across Meta and Google for a monthly budget of ₹8,000–₹10,000, split 70% Meta / 30% Google. At this budget, the objective is not aggressive scale — it is to identify the winning audience and creative angle on each platform, establish reliable performance data, and build a foundation to scale confidently in subsequent months.</p>
+      </div>
+      <div class="price-card">
+        <div class="eyebrow">Product Price</div>
+        <div class="big">₹297</div>
+        <div class="cap">per box · 54 cards · 5 clue levels</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUDGET ALLOCATION -->
+  <section id="budget">
+    <div class="section-head"><span class="num">01</span><h2>Budget Allocation</h2></div>
+    <p class="section-intro">Based on a ₹10,000 monthly budget — scale proportionally for ₹8,000.</p>
+
+    <div class="split-bar">
+      <span class="split-meta">Meta · 70%</span>
+      <span class="split-google">Google · 30%</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card accent-vermillion">
+        <span class="tag">Facebook + Instagram</span>
+        <h3>Meta</h3>
+        <div class="amount">₹7,000 <small>/ month</small></div>
+        <p>Discovery &amp; impulse-driven demand — ideal for an emotive, curiosity-led, gifting product.</p>
+      </div>
+      <div class="card accent-marigold">
+        <span class="tag">Google Search</span>
+        <h3>Google</h3>
+        <div class="amount">₹3,000 <small>/ month</small></div>
+        <p>Capturing existing intent from people already searching for mythology / educational games.</p>
+      </div>
+    </div>
+    <p class="pacing-note">Weekly pacing: ₹1,750/week on Meta and ₹750/week on Google — keeping daily spend comfortably above platform minimums without underspending.</p>
+  </section>
+
+  <!-- META ADS -->
+  <section id="meta">
+    <div class="section-head"><span class="num">02</span><h2>Meta Ads Setup — ₹7,000 / Month</h2></div>
+
+    <div class="card accent-indigo" style="margin-bottom:2rem;">
+      <h3>Campaign Structure</h3>
+      <p style="margin-bottom:0.9rem;">A single, tightly structured campaign performs better than a fragmented one at this budget.</p>
+      <ul class="spec-list">
+        <li><span class="k">Objective</span><span class="v">Sales, optimised for Purchase</span></li>
+        <li><span class="k">Bidding</span><span class="v">Lowest Cost (no cost cap initially)</span></li>
+        <li><span class="k">Placements</span><span class="v">Advantage+ (automatic)</span></li>
+        <li><span class="k">Ad sets</span><span class="v">Max 2–3, for faster learning-phase exit</span></li>
+      </ul>
+    </div>
+
+    <h3 style="font-size:1.1rem; margin-bottom:1rem;">Ad Set Breakdown</h3>
+    <div class="grid-3">
+      <div class="card">
+        <span class="budget-tag">₹900 / week</span>
+        <h3>Broad / Advantage+</h3>
+        <p>No interest targeting; ages 18–45, India.</p>
+        <p style="color:#6b6880; font-size:0.86rem;">Typically yields the most efficient results once the pixel logs 15–20 purchases.</p>
+      </div>
+      <div class="card">
+        <span class="budget-tag">₹600 / week</span>
+        <h3>Interest-Based</h3>
+        <p>Hinduism/spirituality, Ramayana &amp; Mahabharat fans, parenting, homeschooling, mythology books, board games.</p>
+        <p style="color:#6b6880; font-size:0.86rem;">Backup/testing lane if broad targeting underperforms.</p>
+      </div>
+      <div class="card">
+        <span class="budget-tag">₹250 / week</span>
+        <h3>Retargeting</h3>
+        <p>Website visitors (30 days), add-to-cart, IG/FB engagers.</p>
+        <p style="color:#6b6880; font-size:0.86rem;">Cheapest conversions on the account — protect this budget even if others are trimmed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREATIVE APPROACH -->
+  <section id="creative">
+    <div class="section-head"><span class="num">03</span><h2>Creative Approach</h2></div>
+    <p class="section-intro">Run 3–5 creatives per ad set, refreshed every 10–14 days to prevent fatigue on a small audience base.</p>
+
+    <div class="format-mix">
+      <div class="format-chip"><b>60%</b>Spend-weighted on Reels / video</div>
+      <div class="format-chip"><b>20%</b>Static product + price ads</div>
+      <div class="format-chip"><b>20%</b>Carousel of character cards</div>
+    </div>
+
+    <h3 style="font-size:1.1rem; margin-bottom:1rem;">Recommended Creative Angles</h3>
+    <div class="grid-2">
+      <div class="card"><p><strong>Curiosity &amp; parental pride —</strong> "Do your kids know who Hanuman, Karna, or Draupadi really are?"</p></div>
+      <div class="card"><p><strong>Real families playing —</strong> casual, authentic game-night video; UGC-style typically outperforms polished studio ads in this category.</p></div>
+      <div class="card"><p><strong>Festival gifting —</strong> Diwali, Janmashtami, Dussehra, Ram Navami; creative refreshed around the Hindu festival calendar.</p></div>
+      <div class="card"><p><strong>Unboxing / demo reel —</strong> highlighting card quality and the "54 characters, 5 clue levels" format.</p></div>
+      <div class="card" style="grid-column:1/-1;"><p><strong>Testimonial carousel —</strong> built from existing 5.0★ customer reviews.</p></div>
+    </div>
+
+    <p class="copy-note">Copy guidance: lead with the emotional or cultural hook first; position the ₹297 price as a secondary detail or within the CTA, not the headline.</p>
+  </section>
+
+  <!-- GOOGLE ADS -->
+  <section id="google">
+    <div class="section-head"><span class="num">04</span><h2>Google Ads Setup — ₹3,000 / Month</h2></div>
+    <p class="section-intro">Search campaigns only at this budget level. Performance Max requires more volume and conversion data than ₹3,000/month can generate, and is likely to under-deliver until the account has sufficient history.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Campaign Type</h3>
+        <ul class="spec-list">
+          <li><span class="k">Bidding</span><span class="v">Manual → Max Conversions at ~10</span></li>
+          <li><span class="k">Networks</span><span class="v">Search only</span></li>
+          <li><span class="k">Location</span><span class="v">India, per shipping coverage</span></li>
+          <li><span class="k">Daily budget</span><span class="v">~₹100 / day</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Ad Setup</h3>
+        <ul class="spec-list">
+          <li><span class="k">RSAs</span><span class="v">3 per ad group</span></li>
+          <li><span class="k">Headlines</span><span class="v">10–12 covering key angles</span></li>
+          <li><span class="k">Sitelinks</span><span class="v">How to Play · Reviews · Buy Now</span></li>
+          <li><span class="k">Callouts</span><span class="v">Pan-India · 5.0★ · Ages 8+</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:1.1rem; margin:2rem 0 1rem;">Ad Group Structure</h3>
+    <div class="grid-4">
+      <div class="card">
+        <h4 style="font-size:1rem; margin-bottom:0.5rem;">Mythology Game</h4>
+        <p style="font-size:0.86rem;">"Hindu mythology card game," "Mahabharata card game," "Ramayana board game for kids"</p>
+      </div>
+      <div class="card">
+        <h4 style="font-size:1rem; margin-bottom:0.5rem;">Educational / Kids</h4>
+        <p style="font-size:0.86rem;">"educational board games India kids," "Indian mythology game for kids"</p>
+      </div>
+      <div class="card">
+        <h4 style="font-size:1rem; margin-bottom:0.5rem;">Category / Dharma</h4>
+        <p style="font-size:0.86rem;">"Sanatana dharma game buy online"</p>
+      </div>
+      <div class="card">
+        <h4 style="font-size:1rem; margin-bottom:0.5rem;">Brand</h4>
+        <p style="font-size:0.86rem;">"Vriddhi Games" — low cost, protects existing brand searches</p>
+      </div>
+    </div>
+
+    <div class="neg-strip">
+      <div><div class="eyebrow">Negative Keywords</div><div style="color:var(--ivory-soft); font-size:0.84rem; margin-top:0.25rem;">Filtering out content-seekers, not product buyers</div></div>
+      <div class="neg-words">
+        <span>free</span><span>PDF</span><span>download</span><span>app</span><span>movie</span><span>serial</span><span>watch online</span>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:1.4rem;">
+      <div class="card">
+        <h4 style="font-size:0.98rem; margin-bottom:0.3rem;">Sitelink Extensions</h4>
+        <div class="chip-row"><span>How to Play</span><span>Reviews</span><span>Buy Now</span></div>
+      </div>
+      <div class="card">
+        <h4 style="font-size:0.98rem; margin-bottom:0.3rem;">Callout Extensions</h4>
+        <div class="chip-row"><span>Pan-India Delivery</span><span>5.0★ Rated</span><span>Ages 8+</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEW RHYTHM -->
+  <section id="rhythm">
+    <div class="section-head"><span class="num">05</span><h2>Monthly Review Rhythm</h2></div>
+    <div class="timeline">
+      <div class="card week-card">
+        <div class="week-dot">1</div>
+        <h4>Launch</h4>
+        <p>Launch both channels with minimal interference — allow algorithms to exit the learning phase.</p>
+      </div>
+      <div class="card week-card">
+        <div class="week-dot">2</div>
+        <h4>First Review</h4>
+        <p>Performance review by ad set/keyword; pause only clear underperformers (high spend, no conversions).</p>
+      </div>
+      <div class="card week-card">
+        <div class="week-dot">3</div>
+        <h4>Refresh</h4>
+        <p>Refresh 1–2 Meta creatives; reallocate budget toward the strongest-performing ad set or keyword.</p>
+      </div>
+      <div class="card week-card">
+        <div class="week-dot">4</div>
+        <h4>Full Review</h4>
+        <p>Performance, order volume, top-performing angle — to set next month's allocation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCLUSION -->
+  <section id="conclusion">
+    <div class="section-head"><span class="num">06</span><h2>Conclusion &amp; Key Recommendations</h2></div>
+    <div class="reco-list">
+      <div class="reco-item"><div class="n">1</div><p>The 70/30 Meta–Google split fits this product well: Meta captures impulse and emotion-driven demand, while Google captures the smaller pool of people already searching for it.</p></div>
+      <div class="reco-item"><div class="n">2</div><p>Keep both channels lean, not fragmented — 2–3 Meta ad sets and one focused Google Search campaign will consistently outperform spreading the budget across five or more campaigns.</p></div>
+      <div class="reco-item"><div class="n">3</div><p>Retargeting delivers the most cost-efficient conversions on the account and should be protected even if other budgets are trimmed.</p></div>
+      <div class="reco-item"><div class="n">4</div><p>Creative is the primary lever at this spend, more so than audience targeting — a strong UGC, testimonial, or festival-themed ad will outperform incremental targeting adjustments.</p></div>
+      <div class="reco-item"><div class="n">5</div><p>Align creative refreshes with the Hindu festival calendar — Diwali, Janmashtami, Dussehra, and Ram Navami represent natural gifting spikes for this product.</p></div>
+      <div class="reco-item"><div class="n">6</div><p>Hold off on Performance Max until the account has logged at least 10 conversions — Search alone is the better use of ₹3,000/month for now.</p></div>
+      <div class="reco-item"><div class="n">7</div><p>Review performance weekly rather than daily — small budgets need a few days per ad set to generate enough signal for a fair read.</p></div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="brand">Vriddhi Games</div>
+  Prepared for Vriddhi Games (Sadbodhavyam Enterprises) · Internal &amp; Client Review · August 2026
+</footer>
+
+</body>
+</html>
